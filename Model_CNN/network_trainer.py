@@ -90,38 +90,16 @@ FLAGS = None
 # sizes. If you want to adapt this script to work with another model, you will
 # need to update these to reflect the values in the network you're using.
 # pylint: disable=line-too-long
+DATA_URL = 'http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz'
 # pylint: enable=line-too-long
-MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1  # ~134M
-
-# DATA_URL = 'http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz'  
-# BOTTLENECK_TENSOR_NAME = 'pool_3/_reshape:0' 
-# BOTTLENECK_TENSOR_SIZE = 2048
-# MODEL_INPUT_WIDTH = 299
-# MODEL_INPUT_HEIGHT = 299
-# MODEL_INPUT_DEPTH = 3
-# JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0' 
-# RESIZED_INPUT_TENSOR_NAME = 'ResizeBilinear:0' 
-
-# Mobilenet Parameters NOT quantized -  mobilenet_1.0_224
-DATA_URL = 'http://download.tensorflow.org/models/mobilenet_v1_1.0_224_frozen.tgz'
-BOTTLENECK_TENSOR_NAME = 'MobilenetV1/Predictions/Reshape:0'
-RESIZED_INPUT_TENSOR_NAME = 'input:0'
-BOTTLENECK_TENSOR_SIZE = 1001
-MODEL_INPUT_WIDTH = 224
-MODEL_INPUT_HEIGHT = 224
+BOTTLENECK_TENSOR_NAME = 'pool_3/_reshape:0'
+BOTTLENECK_TENSOR_SIZE = 2048
+MODEL_INPUT_WIDTH = 299
+MODEL_INPUT_HEIGHT = 299
 MODEL_INPUT_DEPTH = 3
 JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0'
-
-# Mobilenet Parameters NOT quantized -  mobilenet_v2_1.4_224
-# DATA_URL = 'http://download.tensorflow.org/models/mobilenet_v2_1.4_224.tgz'
-# BOTTLENECK_TENSOR_NAME = 'MobilenetV1/Predictions/Reshape:0'
-# RESIZED_INPUT_TENSOR_NAME = 'input:0'
-# BOTTLENECK_TENSOR_SIZE = 1001
-# MODEL_INPUT_WIDTH = 224
-# MODEL_INPUT_HEIGHT = 224
-# MODEL_INPUT_DEPTH = 3
-# JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0'
-
+RESIZED_INPUT_TENSOR_NAME = 'ResizeBilinear:0'
+MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1  # ~134M
 
 
 def create_image_lists(image_dir, testing_percentage, validation_percentage):
@@ -239,7 +217,8 @@ def get_image_path(image_lists, label_name, index, image_dir, category):
   return full_path
 
 
-def get_bottleneck_path(image_lists, label_name, index, bottleneck_dir, category):
+def get_bottleneck_path(image_lists, label_name, index, bottleneck_dir,
+                        category):
   """"Returns a path to a bottleneck file for a label at the given index.
 
   Args:
@@ -259,7 +238,7 @@ def get_bottleneck_path(image_lists, label_name, index, bottleneck_dir, category
 
 
 def create_inception_graph():
-  """"Creates a graph from saved GraphDef file and returns a Graph object
+  """"Creates a graph from saved GraphDef file and returns a Graph object.
 
   Returns:
     Graph holding the trained Inception network, and various tensors we'll be
@@ -379,7 +358,9 @@ def create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
   with open(bottleneck_path, 'w') as bottleneck_file:
     bottleneck_file.write(bottleneck_string)
 
-def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir, category, bottleneck_dir, jpeg_data_tensor, bottleneck_tensor):
+def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir,
+                             category, bottleneck_dir, jpeg_data_tensor,
+                             bottleneck_tensor):
   """Retrieves or calculates bottleneck values for an image.
 
   If a cached version of the bottleneck data exists on-disk, return that,
@@ -425,7 +406,8 @@ def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir, ca
     bottleneck_values = [float(x) for x in bottleneck_string.split(',')]
   return bottleneck_values
 
-def cache_bottlenecks(sess, image_lists, image_dir, bottleneck_dir, jpeg_data_tensor, bottleneck_tensor):
+def cache_bottlenecks(sess, image_lists, image_dir, bottleneck_dir,
+                      jpeg_data_tensor, bottleneck_tensor):
   """Ensures all the training, testing, and validation bottlenecks are cached.
 
   Because we're likely to read the same image multiple times (if there are no
@@ -934,13 +916,13 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/tmp/output_graph_mobilenet_run_1.pb',
+      default='/tmp/output_graph_inception_run_2.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--output_labels',
       type=str,
-      default='/tmp/output_labels_mobilenet_run_1.txt',
+      default='/tmp/output_labels_inception_run_2.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
