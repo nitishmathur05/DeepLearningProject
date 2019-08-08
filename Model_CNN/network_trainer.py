@@ -90,19 +90,30 @@ FLAGS = None
 # sizes. If you want to adapt this script to work with another model, you will
 # need to update these to reflect the values in the network you're using.
 # pylint: disable=line-too-long
-DATA_URL = 'http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz'  
 # pylint: enable=line-too-long
-BOTTLENECK_TENSOR_NAME = 'pool_3/_reshape:0' 
-BOTTLENECK_TENSOR_SIZE = 2048
-MODEL_INPUT_WIDTH = 299
-MODEL_INPUT_HEIGHT = 299
-MODEL_INPUT_DEPTH = 3
-JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0' 
-RESIZED_INPUT_TENSOR_NAME = 'ResizeBilinear:0' 
 MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1  # ~134M
 
-# Mobilenet Parameters NOT quantized
-# DATA_URL = 'http://download.tensorflow.org/models/mobilenet_v1_' + version_string + '_' + size_string + '_frozen.tgz'
+# DATA_URL = 'http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz'  
+# BOTTLENECK_TENSOR_NAME = 'pool_3/_reshape:0' 
+# BOTTLENECK_TENSOR_SIZE = 2048
+# MODEL_INPUT_WIDTH = 299
+# MODEL_INPUT_HEIGHT = 299
+# MODEL_INPUT_DEPTH = 3
+# JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0' 
+# RESIZED_INPUT_TENSOR_NAME = 'ResizeBilinear:0' 
+
+Mobilenet Parameters NOT quantized -  mobilenet_1.0_224
+DATA_URL = 'http://download.tensorflow.org/models/mobilenet_1.0_224.tgz'
+BOTTLENECK_TENSOR_NAME = 'MobilenetV1/Predictions/Reshape:0'
+RESIZED_INPUT_TENSOR_NAME = 'input:0'
+BOTTLENECK_TENSOR_SIZE = 1001
+MODEL_INPUT_WIDTH = 224
+MODEL_INPUT_HEIGHT = 224
+MODEL_INPUT_DEPTH = 3
+JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0'
+
+# Mobilenet Parameters NOT quantized -  mobilenet_v2_1.4_224
+# DATA_URL = 'http://download.tensorflow.org/models/mobilenet_v2_1.4_224.tgz'
 # BOTTLENECK_TENSOR_NAME = 'MobilenetV1/Predictions/Reshape:0'
 # RESIZED_INPUT_TENSOR_NAME = 'input:0'
 # BOTTLENECK_TENSOR_SIZE = 1001
@@ -110,6 +121,7 @@ MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1  # ~134M
 # MODEL_INPUT_HEIGHT = 224
 # MODEL_INPUT_DEPTH = 3
 # JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0'
+
 
 
 def create_image_lists(image_dir, testing_percentage, validation_percentage):
