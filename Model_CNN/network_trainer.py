@@ -102,7 +102,7 @@ MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1  # ~134M
 # JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0' 
 # RESIZED_INPUT_TENSOR_NAME = 'ResizeBilinear:0' 
 
-Mobilenet Parameters NOT quantized -  mobilenet_1.0_224
+# Mobilenet Parameters NOT quantized -  mobilenet_1.0_224
 DATA_URL = 'http://download.tensorflow.org/models/mobilenet_1.0_224.tgz'
 BOTTLENECK_TENSOR_NAME = 'MobilenetV1/Predictions/Reshape:0'
 RESIZED_INPUT_TENSOR_NAME = 'input:0'
