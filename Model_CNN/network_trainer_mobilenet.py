@@ -793,7 +793,7 @@ def main(_):
 
   # Set up the pre-trained graph.
   maybe_download_and_extract()
-  graph, bottleneck_tensor, jpeg_data_tensor, resized_image_tensor = (
+  graph, bottleneck_tensor, resized_image_tensor = (
       create_inception_graph())
 
   # Look at the folder structure, and create lists of all the images.
