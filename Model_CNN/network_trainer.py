@@ -259,7 +259,7 @@ def get_bottleneck_path(image_lists, label_name, index, bottleneck_dir, category
 
 
 def create_inception_graph():
-  """"Creates a graph from saved GraphDef file and returns a Graph object.
+  """"Creates a graph from saved GraphDef file and returns a Graph object
 
   Returns:
     Graph holding the trained Inception network, and various tensors we'll be
