@@ -795,7 +795,7 @@ def main(_):
   maybe_download_and_extract()
   graph, bottleneck_tensor, resized_image_tensor = (
       create_inception_graph())
-
+  jpeg_data_tensor = 'DecodeJPGInput'
   # Look at the folder structure, and create lists of all the images.
   image_lists = create_image_lists(FLAGS.image_dir, FLAGS.testing_percentage,
                                    FLAGS.validation_percentage)
