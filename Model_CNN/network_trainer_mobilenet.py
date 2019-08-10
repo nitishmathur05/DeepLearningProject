@@ -181,7 +181,7 @@ def create_model_graph(model_info):
     return graph, bottleneck_tensor, resized_input_tensor
 # end function
 
-def main():
+def main(_):
     print("-"*10,"Starting program","-"*10)
     # make sure the logging output is visible, see https://github.com/tensorflow/tensorflow/issues/3047
     tf.logging.set_verbosity(tf.logging.INFO)
