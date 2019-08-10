@@ -1,7 +1,7 @@
 # DeepLearningProject
 
 - Train
-python network_trainer.py --image_dir ../NPDI/Frames --model=/tmp/mobilenet --bottleneck_dir=/tmp/mobilenet_bottleneck
+python network_trainer.py --image_dir /mnt/project/NPDI/Frames 
 
 - Test
 python test_network.py test-images\<img>

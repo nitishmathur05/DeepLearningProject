@@ -1,24 +1,3 @@
-"""
-    try-retrain.py 
-
-    This is a small demo program that shows how to use a retrained version of the 
-    Inception model to classify images.
-
-    To use the program:
-
-    1. Update MODEL_PATH and LABEL_PATH to point to the where you wrote the retrained Inception Model
-       and the output lables for your new classes
-    2. Get a jpeg image you want to classify.  It must have a .jpg or .jpeg extension.
-    3. Run this program with the command:
-    
-            python try-retrain.py <path to your jpeg image>
-
-    This program is part of the Pluralsight course, "TensorFlow: Getting Started".  Watch that
-    course for full instructions on using this program
-
-    This program is a modified version of https://github.com/eldor4do/Tensorflow-Examples/retraining-example.py
-    
-"""
 
 #   Imports
 import tensorflow as tf
@@ -28,23 +7,14 @@ import argparse
 # Paths to files producted as part of retraining Inception.  Change these if you saved your files in
 #   a different location.
 #   Retrained graph
-MODEL_PATH = "/tmp/output_graph_project_run_1.pb"
-#   Labels the newly retrained graph.  These would be the new classes being classified 
-#       such as "Rose, Dandillion, ..."
-LABEL_PATH = "/tmp/output_labels_project_run_1.txt"
 
+MODEL_PATH = "/tmp/output_graph_mobilenet_run_1.pb"
 
-# Load the retrained graph as the default graph 
-# def load_graph(modelPath):
+LABEL_PATH = "/tmp/output_labels_mobilenet_run_1.txt"
 
-#     with tf.gfile.FastGFile(modelPath, 'rb') as f:
-#         # init GraphDef object
-#         graph_def = tf.GraphDef()
-#         # Read in the graphy from the file
-#         graph_def.ParseFromString(f.read())
-#         _ = tf.import_graph_def(graph_def, name='')
-#         # this point the retrained graph is the default graph
+# MODEL_PATH = "/tmp/output_graph_project_run_1.pb"
 
+# LABEL_PATH = "/tmp/output_labels_project_run_1.txt"
 
 #   Remove ugly characters from strings
 def filter_delimiters(text):
