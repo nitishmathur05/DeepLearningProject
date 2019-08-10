@@ -519,7 +519,7 @@ def add_final_training_ops(class_count, final_tensor_name, bottleneck_tensor, bo
     tf.summary.scalar('cross_entropy', cross_entropy_mean)
 
     with tf.name_scope('train'):
-        optimizer = tf.train.GradientDescentOptimizer(LEARNING_RATE)
+        optimizer = tf.train.GradientDescentOptimizer(FLAGS.learning_rate)
         train_step = optimizer.minimize(cross_entropy_mean)
     # end with
 
@@ -566,7 +566,7 @@ def get_random_distorted_bottlenecks(sess, image_lists, how_many, category, imag
     return bottlenecks, ground_truths
 # end function
 
-#######################################################################################################################
+
 def get_random_cached_bottlenecks(sess, image_lists, how_many, category, bottleneck_dir, image_dir, jpeg_data_tensor,
   decoded_image_tensor, resized_input_tensor, bottleneck_tensor, architecture):
     class_count = len(image_lists.keys())
