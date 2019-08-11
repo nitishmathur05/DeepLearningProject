@@ -8,13 +8,11 @@ import argparse
 #   a different location.
 #   Retrained graph
 
-MODEL_PATH = "/tmp/output_graph_mobilenet_run_1.pb"
 
-LABEL_PATH = "/tmp/output_labels_mobilenet_run_1.txt"
 
-# MODEL_PATH = "/tmp/output_graph_project_run_1.pb"
+MODEL_PATH = "/tmp/output_graph_project_run_1.pb"
 
-# LABEL_PATH = "/tmp/output_labels_project_run_1.txt"
+LABEL_PATH = "/tmp/output_labels_project_run_1.txt"
 
 #   Remove ugly characters from strings
 def filter_delimiters(text):
