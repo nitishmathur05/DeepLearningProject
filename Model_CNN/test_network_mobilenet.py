@@ -56,7 +56,7 @@ def main():
             # for each sub-folder in each classification folder
             for fileName in os.listdir(groupDir):
 
-                resultLog = open(subgroupDir + '_' + MODEL_NAME + '.txt', 'w')
+                resultLog = open(groupDir + '_' + MODEL_NAME + '.txt', 'w')
 
                 # if the file does not end in .jpg or .jpeg (case-insensitive), continue with the next iteration of the for loop
                 if not (fileName.lower().endswith(".jpg") or fileName.lower().endswith(".jpeg")):
@@ -64,7 +64,7 @@ def main():
                 # show the file name on std out
                 print(fileName)
 
-                imageFileWithPath = os.path.join(subgroupDir, fileName)
+                imageFileWithPath = os.path.join(groupDir, fileName)
                 # attempt to open the image with OpenCV
                 openCVImage = cv2.imread(imageFileWithPath)
 
