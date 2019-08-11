@@ -45,13 +45,13 @@ def main():
         return
     # end if
 
-    print("-------------------222-------------------")
     with tf.Session() as sess:
 
         # for each folder in the test images directory . . .
         for group in next(os.walk(TEST_IMAGES_DIR))[1]:
             # Get classification group folder dir
             groupDir = os.path.join(TEST_IMAGES_DIR, group)
+            print (groupDir)
 
             # for each sub-folder in each classification folder
             for subgroup in next(os.walk(groupDir))[1]:
@@ -119,7 +119,7 @@ def main():
 
 
     # write the graph to file so we can view with TensorBoard
-    tfFileWriter = tf.summary.FileWriter(TEST_IMAGES_DIR)
+    tfFileWriter = tf.compat.v1.summary.FileWriter(TEST_IMAGES_DIR)
     tfFileWriter.add_graph(sess.graph)
     tfFileWriter.close()
 
