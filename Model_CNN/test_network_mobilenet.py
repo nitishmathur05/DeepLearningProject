@@ -35,6 +35,7 @@ def main():
         graphDef.ParseFromString(retrainedGraphFile.read())
         # import the graph into the current default Graph, note that we don't need to be concerned with the return value
         _ = tf.import_graph_def(graphDef, name='')
+        print (graphDef)
 
     # if the test image directory listed above is not valid, show an error message and bail
     if not os.path.isdir(NON_PORN_DIR):
