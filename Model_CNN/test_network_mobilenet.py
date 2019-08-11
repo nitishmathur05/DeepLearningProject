@@ -79,6 +79,8 @@ def main():
                     continue
 
                 # run the network to get the predictions
+                print (finalTensor)
+                print (tfImage)
                 predictions = sess.run(finalTensor, {IMAGE_ENTRY : tfImage})
 
                 # sort predictions from most confidence to least confidence
