@@ -5,11 +5,18 @@ import cv2
 
 # Variables --------------------------------------------------------------------------------------------
 # This section is for mobilenet
-MODEL_NAME = 'mobilenet_1.0_224'
-IMAGE_ENTRY = 'DecodeJpgInput:0'
+# MODEL_NAME = 'mobilenet_1.0_224'
+# IMAGE_ENTRY = 'DecodeJpgInput:0'
 
-RETRAINED_LABELS_TXT_FILE_LOC = "/tmp/output_labels_mobilenet_run_1.txt"
-RETRAINED_GRAPH_PB_FILE_LOC = "/tmp/output_graph_mobilenet_run_1.pb"
+MODEL_NAME = "inception_v3"
+IMAGE_ENTRY = 'DecodeJpeg:0'
+
+
+# RETRAINED_LABELS_TXT_FILE_LOC = "/tmp/output_labels_mobilenet_run_1.txt"
+# RETRAINED_GRAPH_PB_FILE_LOC = "/tmp/output_graph_mobilenet_run_1.pb"
+
+RETRAINED_LABELS_TXT_FILE_LOC = "/tmp/output_labels_project_run_1.txt"
+RETRAINED_GRAPH_PB_FILE_LOC = "/tmp/output_graph_project_run_1.pb"
 
 TEST_IMAGES_DIR = "/mnt/project/NPDI/test_images"
 NON_PORN_DIR = TEST_IMAGES_DIR + '/non_porn'
@@ -35,7 +42,6 @@ def main():
         graphDef.ParseFromString(retrainedGraphFile.read())
         # import the graph into the current default Graph, note that we don't need to be concerned with the return value
         _ = tf.import_graph_def(graphDef, name='')
-        print (graphDef)
 
     # if the test image directory listed above is not valid, show an error message and bail
     if not os.path.isdir(NON_PORN_DIR):
