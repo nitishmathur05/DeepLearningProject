@@ -45,6 +45,7 @@ def main():
         return
     # end if
 
+    print("-------------------222-------------------")
     with tf.Session() as sess:
 
         # for each folder in the test images directory . . .
