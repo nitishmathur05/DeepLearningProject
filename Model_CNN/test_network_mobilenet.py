@@ -48,7 +48,7 @@ def predict_image_class(imagePath, labelPath):
         softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
         #   Get the predictions on our image by add the image data to the tensor
         predictions = sess.run(softmax_tensor,
-                            {'DecodeJPGInput': image_data})
+                            {'DecodeJpgInput:0': image_data})
         
         # Format predicted classes for display
         #   use np.squeeze to convert the tensor to a 1-d vector of probability values
