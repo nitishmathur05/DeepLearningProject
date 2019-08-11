@@ -62,6 +62,7 @@ def main():
                 # Create result log for this subgroup of test images
                 resultLog = open(subgroupDir + '_' + MODEL_NAME + '.txt', 'w')
 
+                print (subgroupDir, resultLog)
                 # For each image file inside the sub-group folder
                 for fileName in os.listdir(subgroupDir):
 
