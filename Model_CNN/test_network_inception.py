@@ -10,9 +10,9 @@ import argparse
 
 
 
-MODEL_PATH = "/tmp/output_graph_project_run_1.pb"
+MODEL_PATH = "/mnt/project/InceptionV3/output_graph_project_run_1.pb"
 
-LABEL_PATH = "/tmp/output_labels_project_run_1.txt"
+LABEL_PATH = "/mnt/project/InceptionV3/output_labels_project_run_1.txt"
 
 #   Remove ugly characters from strings
 def filter_delimiters(text):

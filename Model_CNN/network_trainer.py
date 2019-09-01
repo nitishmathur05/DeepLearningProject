@@ -53,11 +53,11 @@ program, for example the label_image sample code.
 
 To use with TensorBoard:
 
-By default, this script will log summaries to /tmp/retrain_logs directory
+By default, this script will log summaries to /mnt/project/InceptionV3/retrain_logs directory
 
 Visualize the summaries with this command:
 
-tensorboard --logdir /tmp/retrain_logs
+tensorboard --logdir /mnt/project/InceptionV3/retrain_logs
 
 """
 from __future__ import absolute_import
@@ -817,7 +817,7 @@ def main(_):
   evaluation_step, prediction = add_evaluation_step(
       final_tensor, ground_truth_input)
 
-  # Merge all the summaries and write them out to /tmp/retrain_logs (by default)
+  # Merge all the summaries and write them out to /mnt/project/InceptionV3/retrain_logs (by default)
   merged = tf.summary.merge_all()
   train_writer = tf.summary.FileWriter(FLAGS.summaries_dir + '/train',
                                        sess.graph)
@@ -916,19 +916,19 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/tmp/output_graph_inception_run_2.pb',
+      default='/mnt/project/InceptionV3/output_graph_inception_run_2.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--output_labels',
       type=str,
-      default='/tmp/output_labels_inception_run_2.txt',
+      default='/mnt/project/InceptionV3/output_labels_inception_run_2.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
-      default='/tmp/retrain_logs',
+      default='/mnt/project/InceptionV3/retrain_logs',
       help='Where to save summary logs for TensorBoard.'
   )
   parser.add_argument(
@@ -1002,7 +1002,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--model_dir',
       type=str,
-      default='/tmp/imagenet',
+      default='/mnt/project/InceptionV3/imagenet',
       help="""\
       Path to classify_image_graph_def.pb,
       imagenet_synset_to_human_label_map.txt, and
@@ -1012,7 +1012,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--bottleneck_dir',
       type=str,
-      default='/tmp/bottleneck',
+      default='/mnt/project/InceptionV3/bottleneck',
       help='Path to cache bottleneck layer values as files.'
   )
   parser.add_argument(
