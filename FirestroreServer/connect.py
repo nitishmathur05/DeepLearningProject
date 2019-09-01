@@ -26,7 +26,7 @@ def hello_world():
 
 
 firebase_key = '../firebase_key.json'
-bucket_name = 'gs://chatapplication-d7a3e.appspot.com/'
+bucket_name = 'chatapplication-d7a3e.appspot.com'
 
 cred = credentials.Certificate(firebase_key)
 
