@@ -10,10 +10,9 @@ const path = require('path');
 // });
 
 exports.myfirstcouldfunc = functions.storage.object().onFinalize(event => {
-	const object = event.data;
-	const bucket = object.bucket;
-	const contentType = object.contentType;
-	const filePath = object.name;
+	const bucket = event.bucket;
+	const contentType = event.contentType;
+	const filePath = event.name;
 	
 	console.log("Hello from nitish");
 
