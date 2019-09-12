@@ -1,5 +1,5 @@
 const functions = require('firebase-functions');
-const gcs = require('@google-cloud/storage');
+const {Storage} = require('@google-cloud/storage');
 const os = require('os');
 const path = require('path');
 // // Create and Deploy Your First Cloud Functions
@@ -8,6 +8,11 @@ const path = require('path');
 // exports.helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
+
+const projectId = 'chatapplication-d7a3e';
+const storage_bucket = new Storage({
+  projectId: projectId,
+});
 
 exports.myfirstcouldfunc = functions.storage.object().onFinalize(event => {
 	const bucket = event.bucket;
@@ -21,7 +26,7 @@ exports.myfirstcouldfunc = functions.storage.object().onFinalize(event => {
 		return;
 	}
 
-	const destBucket = gcs.bucket(bucket);
+	const destBucket = storage_bucket.bucket(bucket);
 	const tmpFilePath = path.join(os.tmpdir(), path.basename(filePath));
 	const metadata = { contentType: contentType };
 
