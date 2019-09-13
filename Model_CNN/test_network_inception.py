@@ -77,7 +77,7 @@ def predict_image_class(imagePath, labelPath):
 
 		answer = labels[top_k[0]]
 
-		print ("time to classify-",round((time.time()-start)),3)
+		print ("time to classify-",(time.time()-start))
 		return answer
 
 # Get the path to the image you want to predict.  
