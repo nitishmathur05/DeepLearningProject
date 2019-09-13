@@ -13,7 +13,7 @@ import time
 
 MODEL_PATH = "/mnt/project/InceptionV3/output_graph_inception_run_sep_13.pb"
 
-LABEL_PATH = "/mnt/project/InceptionV3/output_graph_inception_run_sep_13.txt"
+LABEL_PATH = "/mnt/project/InceptionV3/output_labels_inception_run_sep_13.txt"
 
 #   Remove ugly characters from strings
 def filter_delimiters(text):
