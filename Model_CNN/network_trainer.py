@@ -855,13 +855,13 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/mnt/project/InceptionV3/output_graph_inception_run_sep_13.pb',
+      default='/mnt/project/InceptionV3/output_graph_inception_run_sep_27_8K.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--output_labels',
       type=str,
-      default='/mnt/project/InceptionV3/output_labels_inception_run_sep_13.txt',
+      default='/mnt/project/InceptionV3/output_labels_inception_run_sep_27_8K.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
