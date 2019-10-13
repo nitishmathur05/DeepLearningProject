@@ -1,4 +1,4 @@
-from keras.applications.mobilenetv2 import MobileNetV2
+from keras.applications.mobilenet_v2 import MobileNetV2
 from keras.preprocessing import image
 from keras.applications.vgg19 import preprocess_input
 from keras.models import Model

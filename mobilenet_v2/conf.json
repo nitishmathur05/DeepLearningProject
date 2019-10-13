@@ -1,13 +1,13 @@
 {
     "weights"         : "imagenet",
   
-    "train_path"      : "train_data",
+    "train_path"      : "/mnt/project/NPDI/Frames/",
     "test_path"       : "test_data",
     "augmented_data"  : "augmented_data",
-    "model_path"      : "model_data",
+    "model_path"      : "/mnt/project/MobileNet/MobileNet_V2",
 
-    "classes"         : 10,
-    "validation_split": 0.15,
+    "classes"         : 2,
+    "validation_split": 0.1,
     "batch_size"      : 64,
     "epochs"          : 50,
     "epochs_after_unfreeze" : 5,

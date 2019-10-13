@@ -7,7 +7,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 tf.logging.set_verbosity(tf.logging.ERROR)
 
 # keras imports
-from keras.applications.mobilenetv2 import MobileNetV2
+from keras.applications.mobilenet_v2 import MobileNetV2
 from keras.models import Model, load_model
 from keras.layers import Dense, GlobalAveragePooling2D, Input
 from keras.utils import to_categorical
@@ -40,7 +40,8 @@ epochs_after_unfreeze = config["epochs_after_unfreeze"]
 checkpoint_period = config["checkpoint_period"]
 checkpoint_period_after_unfreeze = config["checkpoint_period_after_unfreeze"]
 
-create_folders(model_path, augmented_data)
+# create_folders(model_path, augmented_data)
+create_folders(model_path)
 
 # create model
 if weights=="imagenet":
