@@ -932,7 +932,10 @@ def get_bottleneck_path(image_lists, label_name, index, bottleneck_dir, category
     Returns:
         File system path string to an image that meets the requested parameters.
     """
-    return get_image_path(image_lists, label_name, index, bottleneck_dir, category) + '_' + architecture + '.txt'
+    try:
+        return get_image_path(image_lists, label_name, index, bottleneck_dir, category) + '_' + architecture + '.txt'
+    except:
+        pass
 # end function
 
 #######################################################################################################################
@@ -941,21 +944,27 @@ def create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
                            decoded_image_tensor, resized_input_tensor,
                            bottleneck_tensor):
     """Create a single bottleneck file."""
-    tf.logging.info('Creating bottleneck at ' + bottleneck_path)
-    image_path = get_image_path(image_lists, label_name, index, image_dir, category)
-    if not gfile.Exists(image_path):
-        tf.logging.fatal('File does not exist %s', image_path)
-    # end if
-    image_data = gfile.FastGFile(image_path, 'rb').read()
     try:
-        bottleneck_values = run_bottleneck_on_image(sess, image_data, jpeg_data_tensor, decoded_image_tensor, resized_input_tensor, bottleneck_tensor)
-    except Exception as e:
-        raise RuntimeError('Error during processing file %s (%s)' % (image_path, str(e)))
-    # end try
+        tf.logging.info('Creating bottleneck at ' + bottleneck_path)
+        image_path = get_image_path(image_lists, label_name, index, image_dir, category)
+        if not gfile.Exists(image_path):
+            tf.logging.fatal('File does not exist %s', image_path)
+        # end if
+        image_data = gfile.FastGFile(image_path, 'rb').read()
+        try:
+            bottleneck_values = run_bottleneck_on_image(sess, image_data, jpeg_data_tensor, decoded_image_tensor, resized_input_tensor, bottleneck_tensor)
+        except Exception as e:
+            raise RuntimeError('Error during processing file %s (%s)' % (image_path, str(e)))
+        # end try
 
-    bottleneck_string = ','.join(str(x) for x in bottleneck_values)
-    with open(bottleneck_path, 'w') as bottleneck_file:
-        bottleneck_file.write(bottleneck_string)
+        bottleneck_string = ','.join(str(x) for x in bottleneck_values)
+        with open(bottleneck_path, 'w') as bottleneck_file:
+            bottleneck_file.write(bottleneck_string)
+    except:
+        print ("--------------Error in Create Bottleneck File-------------")
+        print (image_lists)
+        print (image_dir)
+        pass
     # end with
 # end function
 
