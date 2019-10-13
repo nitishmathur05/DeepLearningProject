@@ -55,11 +55,19 @@ def predict_image_class(imagePath, labelPath):
             return matches
 
         softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
-        predictions = sess.run(softmax_tensor,
-                            {'DecodeJpeg/contents:0': image_data})
+        #finalTensor = sess.graph.get_tensor_by_name('final_result:0')
 
-        predictions = np.squeeze(predictions)
-        top_k = predictions.argsort()[-5:][::-1]
+        #predictions = sess.run(finalTensor, {IMAGE_ENTRY : tfImage})
+        predictions = sess.run(softmax_tensor,
+                            {'DecodeJpgInput:0': image_data})
+
+        #predictions = np.squeeze(predictions)
+
+        #sortedPredictions = predictions[0].argsort()[-len(predictions[0]):][::-1]
+        top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
+
+
+
         f = open(labelPath, 'rb')
         lines = f.readlines()
         labels = [str(w).replace("\n", "") for w in lines]
