@@ -961,9 +961,6 @@ def create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
         with open(bottleneck_path, 'w') as bottleneck_file:
             bottleneck_file.write(bottleneck_string)
     except:
-        print ("--------------Error in Create Bottleneck File-------------")
-        print (image_lists)
-        print (image_dir)
         pass
     # end with
 # end function
@@ -984,11 +981,14 @@ def run_bottleneck_on_image(sess, image_data, image_data_tensor, decoded_image_t
         Numpy array of bottleneck values.
     """
     # First decode the JPEG image, resize it, and rescale the pixel values.
-    resized_input_values = sess.run(decoded_image_tensor, {image_data_tensor: image_data})
-    # Then run it through the recognition network.
-    bottleneck_values = sess.run(bottleneck_tensor, {resized_input_tensor: resized_input_values})
-    bottleneck_values = np.squeeze(bottleneck_values)
-    return bottleneck_values
+    try:
+        resized_input_values = sess.run(decoded_image_tensor, {image_data_tensor: image_data})
+        # Then run it through the recognition network.
+        bottleneck_values = sess.run(bottleneck_tensor, {resized_input_tensor: resized_input_values})
+        bottleneck_values = np.squeeze(bottleneck_values)
+        return bottleneck_values
+    except:
+        pass
 # end function
 
 #######################################################################################################################
@@ -1006,22 +1006,25 @@ def get_image_path(image_lists, label_name, index, image_dir, category):
     Returns:
         File system path string to an image that meets the requested parameters.
     """
-    if label_name not in image_lists:
-        tf.logging.fatal('Label does not exist %s.', label_name)
-    # end if
-    label_lists = image_lists[label_name]
-    if category not in label_lists:
-        tf.logging.fatal('Category does not exist %s.', category)
-    # end if
-    category_list = label_lists[category]
-    if not category_list:
-        tf.logging.fatal('Label %s has no images in the category %s.', label_name, category)
-    # end if
-    mod_index = index % len(category_list)
-    base_name = category_list[mod_index]
-    sub_dir = label_lists['dir']
-    full_path = os.path.join(image_dir, sub_dir, base_name)
-    return full_path
+    try:
+        if label_name not in image_lists:
+            tf.logging.fatal('Label does not exist %s.', label_name)
+        # end if
+        label_lists = image_lists[label_name]
+        if category not in label_lists:
+            tf.logging.fatal('Category does not exist %s.', category)
+        # end if
+        category_list = label_lists[category]
+        if not category_list:
+            tf.logging.fatal('Label %s has no images in the category %s.', label_name, category)
+        # end if
+        mod_index = index % len(category_list)
+        base_name = category_list[mod_index]
+        sub_dir = label_lists['dir']
+        full_path = os.path.join(image_dir, sub_dir, base_name)
+        return full_path
+    except:
+        pass
 # end function
 
 #######################################################################################################################
