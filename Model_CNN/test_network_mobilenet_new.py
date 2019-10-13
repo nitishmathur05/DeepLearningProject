@@ -74,13 +74,13 @@ def main():
 				print ("-"*10,subgroup,"-"*10)
 				# Get subgroup folder dir
 				subgroupDir = os.path.join(groupDir, subgroup)
-
+				print ("-"*10,subgroupDir,"-"*10)
 				# Create result log for this subgroup of test images
 				resultLog = open(subgroupDir + '_' + MODEL_NAME + '.txt', 'w')
 
 				# For each image file inside the sub-group folder
 				for fileName in os.listdir(subgroupDir):
-
+					print ("-"*10,fileName,"-"*10)
 					# if the file does not end in .jpg or .jpeg (case-insensitive), continue with the next iteration of the for loop
 					if not (fileName.lower().endswith(".jpg") or fileName.lower().endswith(".jpeg")):
 						continue
