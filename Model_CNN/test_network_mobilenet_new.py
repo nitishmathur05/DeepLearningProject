@@ -20,10 +20,13 @@ import cv2
 
 # This section is for mobilenet
 MODEL_NAME = 'mobilenet_1.0_224'
-IMAGE_ENTRY = 'DecodeJpgInput'
+IMAGE_ENTRY = 'input:0'
 
 RETRAINED_LABELS_TXT_FILE_LOC = "/mnt/project/MobileNet/output_labels_mobilenet_run_oct_13_8K.txt"
 RETRAINED_GRAPH_PB_FILE_LOC = "/mnt/project/MobileNet/output_graph_mobilenet_run_oct_13_8K.pb"
+
+# RETRAINED_LABELS_TXT_FILE_LOC = "/mnt/project/InceptionV3/output_labels_inception_run_sep_27_8K.txt"
+# RETRAINED_GRAPH_PB_FILE_LOC = "/mnt/project/InceptionV3/output_graph_inception_run_sep_27_8K.pb"
 
 TEST_IMAGES_DIR = "/mnt/project/NPDI/test_images"
 NON_PORN_DIR = TEST_IMAGES_DIR + '/non_porn'

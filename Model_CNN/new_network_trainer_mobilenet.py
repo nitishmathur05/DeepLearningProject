@@ -735,7 +735,6 @@ def add_jpeg_decoding(input_width, input_height, input_depth, input_mean, input_
         Tensors for the node to feed JPEG data into, and the output of the preprocessing steps.
     """
     try:
-
         jpeg_data = tf.placeholder(tf.string, name='DecodeJPGInput')
         decoded_image = tf.image.decode_jpeg(jpeg_data, channels=input_depth)
         decoded_image_as_float = tf.cast(decoded_image, dtype=tf.float32)

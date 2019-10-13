@@ -14,6 +14,16 @@ import time
 MODEL_PATH = "/mnt/project/InceptionV3/output_graph_inception_run_sep_27_8K.pb"
 
 LABEL_PATH = "/mnt/project/InceptionV3/output_labels_inception_run_sep_27_8K.txt"
+IMAGE_ENTRY = 'DecodeJpeg/contents:0'
+
+
+
+
+
+LABEL_PATH = "/mnt/project/MobileNet/output_labels_mobilenet_run_oct_13_8K.txt"
+MODEL_PATH = "/mnt/project/MobileNet/output_graph_mobilenet_run_oct_13_8K.pb"
+IMAGE_ENTRY = 'input:0'
+IMAGE_ENTRY = 'DecodeJPGInput/contents:0'
 
 # MODEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_graph_inception_run_sep_13.pb"
 
@@ -55,8 +65,7 @@ def predict_image_class(imagePath, labelPath):
 
 		softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
 		#   Get the predictions on our image by add the image data to the tensor
-		predictions = sess.run(softmax_tensor,
-							{'DecodeJpeg/contents:0': image_data})
+		predictions = sess.run(softmax_tensor,{IMAGE_ENTRY: image_data})
 		
 		# Format predicted classes for display
 		#   use np.squeeze to convert the tensor to a 1-d vector of probability values
