@@ -78,7 +78,7 @@ MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1  # ~134M
 # path to folders of labeled images
 TRAINING_IMAGES_DIR = '/mnt/project/NPDI/Frames/'
 
-TEST_IMAGES_DIR = "/mnt/project/NPDI/Frames/test_images/"
+TEST_IMAGES_DIR = "/mnt/project/NPDI/test_images/"
 
 OUTPUT_DIR = "/mnt/project/MobileNet/" + ARCHITECTURE
 
