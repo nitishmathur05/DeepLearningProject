@@ -70,67 +70,67 @@ def main():
 			groupDir = os.path.join(TEST_IMAGES_DIR, group)
 
 			# for each sub-folder in each classification folder
-			for subgroup in next(os.walk(groupDir))[1]:
-				print ("-"*10,subgroup,"-"*10)
-				# Get subgroup folder dir
-				subgroupDir = os.path.join(groupDir, subgroup)
-				print ("-"*10,subgroupDir,"-"*10)
+			# for subgroup in next(os.walk(groupDir))[1]:
+			# 	print ("-"*10,subgroup,"-"*10)
+			# 	# Get subgroup folder dir
+			# 	subgroupDir = os.path.join(groupDir, subgroup)
+			# 	print ("-"*10,subgroupDir,"-"*10)
 				# Create result log for this subgroup of test images
-				resultLog = open(subgroupDir + '_' + MODEL_NAME + '.txt', 'w')
+			resultLog = open(groupDir + '_' + MODEL_NAME + '.txt', 'w')
 
 				# For each image file inside the sub-group folder
-				for fileName in os.listdir(subgroupDir):
-					print ("-"*10,fileName,"-"*10)
-					# if the file does not end in .jpg or .jpeg (case-insensitive), continue with the next iteration of the for loop
-					if not (fileName.lower().endswith(".jpg") or fileName.lower().endswith(".jpeg")):
-						continue
-					# show the file name on std out
-					print(fileName)
+			for fileName in os.listdir(groupDir):
+				print ("-"*10,fileName,"-"*10)
+				# if the file does not end in .jpg or .jpeg (case-insensitive), continue with the next iteration of the for loop
+				if not (fileName.lower().endswith(".jpg") or fileName.lower().endswith(".jpeg")):
+					continue
+				# show the file name on std out
+				print(fileName)
 
-					imageFileWithPath = os.path.join(subgroupDir, fileName)
-					# attempt to open the image with OpenCV
-					openCVImage = cv2.imread(imageFileWithPath)
+				imageFileWithPath = os.path.join(subgroupDir, fileName)
+				# attempt to open the image with OpenCV
+				openCVImage = cv2.imread(imageFileWithPath)
 
-					# get the final tensor from the graph
-					finalTensor = sess.graph.get_tensor_by_name('final_result:0')
+				# get the final tensor from the graph
+				finalTensor = sess.graph.get_tensor_by_name('final_result:0')
 
-					# convert the OpenCV image (numpy array) to a TensorFlow image
-					# Some image may corrupt from google search
-					try:
-						tfImage = np.array(openCVImage)[:, :, 0:3]
-					except IndexError:
-						continue
+				# convert the OpenCV image (numpy array) to a TensorFlow image
+				# Some image may corrupt from google search
+				try:
+					tfImage = np.array(openCVImage)[:, :, 0:3]
+				except IndexError:
+					continue
 
-					# run the network to get the predictions
-					predictions = sess.run(finalTensor, {IMAGE_ENTRY : tfImage})
+				# run the network to get the predictions
+				predictions = sess.run(finalTensor, {IMAGE_ENTRY : tfImage})
 
-					# sort predictions from most confidence to least confidence
-					sortedPredictions = predictions[0].argsort()[-len(predictions[0]):][::-1]
+				# sort predictions from most confidence to least confidence
+				sortedPredictions = predictions[0].argsort()[-len(predictions[0]):][::-1]
 
-					print("---------------------------------------")
+				print("---------------------------------------")
 
-					onMostLikelyPrediction = True
-					# for each prediction . . .
-					for prediction in sortedPredictions:
-						strClassification = classifications[prediction]
+				onMostLikelyPrediction = True
+				# for each prediction . . .
+				for prediction in sortedPredictions:
+					strClassification = classifications[prediction]
 
-						# if the classification (obtained from the directory name) ends with the letter "s", remove the "s" to change from plural to singular
-						if strClassification.endswith("s"):
-							strClassification = strClassification[:-1]
-						# end if
+					# if the classification (obtained from the directory name) ends with the letter "s", remove the "s" to change from plural to singular
+					if strClassification.endswith("s"):
+						strClassification = strClassification[:-1]
+					# end if
 
-						# get confidence, then get confidence rounded to 2 places after the decimal
-						confidence = predictions[0][prediction]
+					# get confidence, then get confidence rounded to 2 places after the decimal
+					confidence = predictions[0][prediction]
 
-						# if we're on the first (most likely) prediction, state what the object appears to be and show a % confidence to two decimal places
-						if onMostLikelyPrediction:
+					# if we're on the first (most likely) prediction, state what the object appears to be and show a % confidence to two decimal places
+					if onMostLikelyPrediction:
 
-							# Write result log
-							resultLog.write(fileName + '\t' + strClassification + '\t' + str(confidence) + '\n')
+						# Write result log
+						resultLog.write(fileName + '\t' + strClassification + '\t' + str(confidence) + '\n')
 
-							onMostLikelyPrediction = False
+						onMostLikelyPrediction = False
 
-				resultLog.close()
+			resultLog.close()
 
 
 
