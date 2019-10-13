@@ -873,45 +873,48 @@ def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir, ca
     Returns:
         Numpy array of values produced by the bottleneck layer for the image.
     """
-    label_lists = image_lists[label_name]
-    sub_dir = label_lists['dir']
-    sub_dir_path = os.path.join(bottleneck_dir, sub_dir)
-    makeDirIfDoesNotExist(sub_dir_path)
-    bottleneck_path = get_bottleneck_path(image_lists, label_name, index, bottleneck_dir, category, architecture)
-    if not os.path.exists(bottleneck_path):
-        create_bottleneck_file(bottleneck_path, image_lists, label_name, index, image_dir, category, sess, jpeg_data_tensor,
-                               decoded_image_tensor, resized_input_tensor, bottleneck_tensor)
-    # end if
-
-    # read in the contents of the bottleneck file as one big string
-    with open(bottleneck_path, 'r') as bottleneck_file:
-        bottleneckBigString = bottleneck_file.read()
-    # end with
-
-    bottleneckValues = []
-    errorOccurred = False
     try:
-        # split the bottleneck file contents read in as one big string into individual float values
-        bottleneckValues = [float(individualString) for individualString in bottleneckBigString.split(',')]
-    except ValueError:
-        tf.logging.warning('Invalid float found, recreating bottleneck')
-        errorOccurred = True
-    # end try
+        label_lists = image_lists[label_name]
+        sub_dir = label_lists['dir']
+        sub_dir_path = os.path.join(bottleneck_dir, sub_dir)
+        makeDirIfDoesNotExist(sub_dir_path)
+        bottleneck_path = get_bottleneck_path(image_lists, label_name, index, bottleneck_dir, category, architecture)
+        if not os.path.exists(bottleneck_path):
+            create_bottleneck_file(bottleneck_path, image_lists, label_name, index, image_dir, category, sess, jpeg_data_tensor,
+                                   decoded_image_tensor, resized_input_tensor, bottleneck_tensor)
+        # end if
 
-    if errorOccurred:
-        # if an error occurred above, create (or re-create) the bottleneck file
-        create_bottleneck_file(bottleneck_path, image_lists, label_name, index, image_dir, category, sess,
-                               jpeg_data_tensor, decoded_image_tensor, resized_input_tensor, bottleneck_tensor)
-
-        # read in the contents of the newly created bottleneck file
+        # read in the contents of the bottleneck file as one big string
         with open(bottleneck_path, 'r') as bottleneck_file:
             bottleneckBigString = bottleneck_file.read()
         # end with
 
-        # split the bottleneck file contents read in as one big string into individual float values again
-        bottleneckValues = [float(individualString) for individualString in bottleneckBigString.split(',')]
-    # end if
-    return bottleneckValues
+        bottleneckValues = []
+        errorOccurred = False
+        try:
+            # split the bottleneck file contents read in as one big string into individual float values
+            bottleneckValues = [float(individualString) for individualString in bottleneckBigString.split(',')]
+        except ValueError:
+            tf.logging.warning('Invalid float found, recreating bottleneck')
+            errorOccurred = True
+        # end try
+
+        if errorOccurred:
+            # if an error occurred above, create (or re-create) the bottleneck file
+            create_bottleneck_file(bottleneck_path, image_lists, label_name, index, image_dir, category, sess,
+                                   jpeg_data_tensor, decoded_image_tensor, resized_input_tensor, bottleneck_tensor)
+
+            # read in the contents of the newly created bottleneck file
+            with open(bottleneck_path, 'r') as bottleneck_file:
+                bottleneckBigString = bottleneck_file.read()
+            # end with
+
+            # split the bottleneck file contents read in as one big string into individual float values again
+            bottleneckValues = [float(individualString) for individualString in bottleneckBigString.split(',')]
+        # end if
+        return bottleneckValues
+    except:
+        pass
 # end function
 
 #######################################################################################################################
