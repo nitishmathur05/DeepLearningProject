@@ -87,7 +87,7 @@ def main():
 				# show the file name on std out
 				print(fileName)
 
-				imageFileWithPath = os.path.join(subgroupDir, fileName)
+				imageFileWithPath = os.path.join(groupDir, fileName)
 				# attempt to open the image with OpenCV
 				openCVImage = cv2.imread(imageFileWithPath)
 
