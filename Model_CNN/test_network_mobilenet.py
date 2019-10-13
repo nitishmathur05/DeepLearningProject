@@ -1,7 +1,8 @@
 import os
 import tensorflow as tf
 import numpy as np
-import cv2
+import argparse
+import time
 
 # Variables --------------------------------------------------------------------------------------------
 # This section is for mobilenet
