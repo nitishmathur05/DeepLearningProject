@@ -1,7 +1,7 @@
 {
     "weights"         : "imagenet",
   
-    "train_path"      : "/mnt/project/NPDI/Frames/",
+    "train_path"      : "/mnt/project/NPDI/Frames_V2/",
     "test_path"       : "test_data",
     "augmented_data"  : "augmented_data",
     "model_path"      : "/mnt/project/MobileNet/MobileNet_V2",

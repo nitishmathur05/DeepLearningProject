@@ -16,8 +16,8 @@ def generate_batches(path, batchSize):
                 if i < len(files):  
                     img = cv2.imread(files[i])
                     x.append(cv2.resize(img, (224, 224)))
-                    y.append(int(files[i].split('/')[1]))
-            yield (np.array(x), to_categorical(y, num_classes=10))
+                    y.append(int(files[i].split('/')[5]))
+            yield (np.array(x), to_categorical(y, num_classes=2))
 
 def generate_batches_with_augmentation(train_path, batch_size, validation_split, augmented_data):
         train_datagen = ImageDataGenerator(
