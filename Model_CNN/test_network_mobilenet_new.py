@@ -22,8 +22,8 @@ import cv2
 MODEL_NAME = 'mobilenet_1.0_224'
 IMAGE_ENTRY = 'DecodeJpgInput:0'
 
-RETRAINED_LABELS_TXT_FILE_LOC = "/mnt/project/MobileNet/output_labels_mobilenet_run_sep_27_8K.txt"
-RETRAINED_GRAPH_PB_FILE_LOC = "/mnt/project/MobileNet/output_graph_mobilenet_run_sep_27_8K.pb"
+RETRAINED_LABELS_TXT_FILE_LOC = "/mnt/project/MobileNet/output_labels_mobilenet_run_oct_13_8K.txt"
+RETRAINED_GRAPH_PB_FILE_LOC = "/mnt/project/MobileNet/output_graph_mobilenet_run_oct_13_8K.pb"
 
 TEST_IMAGES_DIR = "/mnt/project/NPDI/test_images"
 NON_PORN_DIR = TEST_IMAGES_DIR + '/non_porn'
