@@ -877,7 +877,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--bottleneck_dir',
       type=str,
-      default='/tmp/mobilenet_bottleneck',
+      default='/mnt/project/MobileNet/mobilenet_bottleneck',
       help='Path to cache bottleneck layer values as files.'
   )
   parser.add_argument(
