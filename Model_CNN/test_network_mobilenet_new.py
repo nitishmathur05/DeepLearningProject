@@ -34,13 +34,14 @@ SCALAR_BLUE = (255.0, 0.0, 0.0)
 # ---------------------------------------------------------------------------------------------------------
 
 def main():
-
+	print ("-"*10,"1","-"*10)
     # Read classification from label file
     classifications = []
     for currentLine in tf.gfile.GFile(RETRAINED_LABELS_TXT_FILE_LOC):
         classification = currentLine.rstrip()
         classifications.append(classification)
 
+    print ("-"*10,"2","-"*10)
     # load the graph from file
     with tf.gfile.FastGFile(RETRAINED_GRAPH_PB_FILE_LOC, 'rb') as retrainedGraphFile:
         # instantiate a GraphDef object
@@ -50,6 +51,7 @@ def main():
         # import the graph into the current default Graph, note that we don't need to be concerned with the return value
         _ = tf.import_graph_def(graphDef, name='')
 
+    print ("-"*10,"3","-"*10)
     # if the test image directory listed above is not valid, show an error message and bail
     if not os.path.isdir(NON_PORN_DIR):
         print("Directory ", NON_PORN_DIR, ' doesnt exist')
@@ -58,7 +60,7 @@ def main():
         print("Directory ", PORN_DIR, ' doesnt exist')
         return
     # end if
-
+    print ("-"*10,"4","-"*10)
     with tf.Session() as sess:
 
         # for each folder in the test images directory . . .
