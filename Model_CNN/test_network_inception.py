@@ -11,15 +11,14 @@ import time
 
 
 
-# MODEL_PATH = "/mnt/project/InceptionV3/output_graph_inception_run_sep_13.pb"
+MODEL_PATH = "/mnt/project/InceptionV3/output_graph_inception_run_sep_27_8K.pb"
 
-# LABEL_PATH = "/mnt/project/InceptionV3/output_labels_inception_run_sep_13.txt"
+LABEL_PATH = "/mnt/project/InceptionV3/output_labels_inception_run_sep_27_8K.txt"
 
-MODEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_graph_inception_run_sep_13.pb"
+# MODEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_graph_inception_run_sep_13.pb"
 
-LABEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_labels_inception_run_sep_13.txt"
+# LABEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_labels_inception_run_sep_13.txt"
 
-#   Remove ugly characters from strings
 def filter_delimiters(text):
 	filtered = text[:-3]
 	filtered = filtered.strip("b'")
@@ -84,7 +83,7 @@ def predict_image_class(imagePath, labelPath):
 		print ("time to classify-",(time.time()-start))
 		return answer
 
-# Get the path to the image you want to predict.  
+
 if __name__ == '__main__':
 	
 	# Ensure the user passes the image_path
