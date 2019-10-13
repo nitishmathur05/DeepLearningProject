@@ -62,15 +62,16 @@ def main():
 	# end if
 	print ("-"*10,"4","-"*10)
 	with tf.Session() as sess:
-
+		print ("-"*10,"5","-"*10)
 		# for each folder in the test images directory . . .
 		for group in next(os.walk(TEST_IMAGES_DIR))[1]:
 			# Get classification group folder dir
+			print ("-"*10,group,"-"*10)
 			groupDir = os.path.join(TEST_IMAGES_DIR, group)
 
 			# for each sub-folder in each classification folder
 			for subgroup in next(os.walk(groupDir))[1]:
-
+				print ("-"*10,subgroup,"-"*10)
 				# Get subgroup folder dir
 				subgroupDir = os.path.join(groupDir, subgroup)
 
