@@ -781,19 +781,19 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/tmp/output_graph_mobilenet_run_sep_27_8K.pb',
+      default='/mnt/project/MobileNet/output_graph_mobilenet_run_sep_27_8K.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--output_labels',
       type=str,
-      default='/tmp/output_labels_mobilenet_run_sep_27_8K.txt',
+      default='/mnt/project/MobileNet/output_labels_mobilenet_run_sep_27_8K.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
-      default='/tmp/retrain_logs_mobilenet_sep_27',
+      default='/mnt/project/MobileNet/retrain_logs_mobilenet_sep_27',
       help='Where to save summary logs for TensorBoard.'
   )
   parser.add_argument(
@@ -867,7 +867,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--model_dir',
       type=str,
-      default='/tmp/mobilenet',
+      default='/mnt/project/MobileNet/mobilenet',
       help="""\
       Path to classify_image_graph_def.pb,
       imagenet_synset_to_human_label_map.txt, and
