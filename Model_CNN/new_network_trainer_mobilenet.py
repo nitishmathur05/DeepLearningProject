@@ -368,7 +368,7 @@ def checkIfNecessaryPathsAndFilesExist():
     for trainingSubDir in trainingSubDirs:
         # count how many images are in the current training sub-directory
         for fileName in os.listdir(trainingSubDir.loc):
-            if fileName.endswith(".jpg"):
+            if fileName.endswith(".jpg") or fileName.endswith(".png"):
                 trainingSubDir.numImages += 1
             # end if
         # end if
@@ -404,7 +404,7 @@ def checkIfNecessaryPathsAndFilesExist():
     # count how many images are in the test images directory
     numImagesInTestDir = 0
     for fileName in os.listdir(TEST_IMAGES_DIR):
-        if fileName.endswith(".jpg"):
+        if fileName.endswith(".jpg") or fileName.endswith(".png"):
             numImagesInTestDir += 1
         # end if
     # end for
