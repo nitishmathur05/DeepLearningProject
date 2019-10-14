@@ -18,7 +18,7 @@ with open('conf.json') as f:
 
 # config variables
 test_path     = config["test_path"]
-weights    = config["load_model"]
+weights    = config["weights"]
 
 print ("Loading model...")
 model = load_model(weights)
@@ -31,6 +31,7 @@ for folder in folders:
     average_confidence = 0
     files = glob.glob(test_path + "/" + folder + "/*.jpg")
     for file in files:
+        print (file)
         img = image.load_img(file, target_size=(224, 224))
         x = image.img_to_array(img)
         x = np.expand_dims(x, axis=0)
@@ -39,7 +40,7 @@ for folder in folders:
         y_class = y_prob.argmax(axis=-1)
         y_class = y_class[0]
         y_confidence = int(y_prob[0][y_class] * 100)
-        #print("predicted label: {} (prob = {})".format(y_class, y_confidence))
+        print("predicted label: {} (prob = {})".format(y_class, y_confidence))
         if y_class == int(folder):
             success += 1
         average_confidence += y_confidence

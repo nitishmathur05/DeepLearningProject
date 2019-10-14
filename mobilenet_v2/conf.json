@@ -1,6 +1,5 @@
 {
-    "weights"         : "imagenet",
-    "load_model"      : "/mnt/project/MobileNet/MobileNet_V2/save_model_stage1.h5",
+    "weights"         : "/mnt/project/MobileNet/MobileNet_V2/save_model_stage1.h5",
     "train_path"      : "/mnt/project/NPDI/Frames_V2/",
     "test_path"       : "/mnt/project/NPDI/test_images_v2",
     "augmented_data"  : "augmented_data",
@@ -9,7 +8,7 @@
     "classes"         : 2,
     "validation_split": 0.1,
     "batch_size"      : 100,
-    "epochs"          : 20,
+    "epochs"          : 2,
     "epochs_after_unfreeze" : 2,
     "data_augmentation" : false,
 
