@@ -18,7 +18,7 @@ with open('conf.json') as f:
 
 # config variables
 test_path     = config["test_path"]
-weights    = config["weights"]
+weights    = config["load_model"]
 
 print ("Loading model...")
 model = load_model(weights)
@@ -46,3 +46,8 @@ for folder in folders:
     success = int(100*success/len(files))
     average_confidence = int(average_confidence / len(files))
     print("class '{}': success rate = {}% with {}% avg confidence".format(folder, success, average_confidence))
+
+
+
+
+
