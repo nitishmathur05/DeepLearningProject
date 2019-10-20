@@ -7,7 +7,7 @@
 
     "classes"         : 2,
     "validation_split": 0.1,
-    "batch_size"      : 100,
+    "batch_size"      : 64,
     "epochs"          : 2,
     "epochs_after_unfreeze" : 2,
     "data_augmentation" : false,
