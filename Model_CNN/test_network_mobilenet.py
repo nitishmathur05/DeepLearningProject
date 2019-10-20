@@ -22,12 +22,14 @@ import time
 
 LABEL_PATH = "/mnt/project/MobileNet/MobileNet_V1/output_labels_oct_16.txt"
 MODEL_PATH = "/mnt/project/MobileNet/MobileNet_V1/output_graph_oct_16.pb"
-IMAGE_ENTRY = tf.placeholder(tf.float32, [None, 224, 224, 3], name='DecodeJPGInput')
+# IMAGE_ENTRY = tf.placeholder(tf.float32, [None, 224, 224, 3], name='DecodeJPGInput')
 # IMAGE_ENTRY = tf.placeholder(tf.float32, [None, 224, 224, 3])
+IMAGE_ENTRY = tf.placeholder(tf.string, name='DecodeJPGInput')
 
 # MODEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_graph_inception_run_sep_13.pb"
 
 # LABEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_labels_inception_run_sep_13.txt"
+
 
 def filter_delimiters(text):
     filtered = text[:-3]
@@ -43,7 +45,7 @@ def predict_image_class(imagePath, labelPath):
     
 
     # Load the image from file
-    image_data = tf.gfile.FastGFile(imagePath, 'rb').read()
+    image_data = tf.gfile.FastGFile(imagePath, 'rb').read() 
 
     # Load the retrained inception based graph
     with tf.gfile.FastGFile(MODEL_PATH, 'rb') as f:
@@ -63,9 +65,25 @@ def predict_image_class(imagePath, labelPath):
             tf.logging.fatal('File does not exist %s', imagePath)
             return matches
 
-        softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
+        # softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
         #   Get the predictions on our image by add the image data to the tensor
-        predictions = sess.run(softmax_tensor,{IMAGE_ENTRY: image_data})
+
+
+        decoded_image = tf.image.decode_jpeg(IMAGE_ENTRY, channels=3)
+        # Convert from full range of uint8 to range [0,1] of float32.
+        decoded_image_as_float = tf.image.convert_image_dtype(decoded_image,
+                                                                tf.float32)
+        decoded_image_4d = tf.expand_dims(decoded_image_as_float, 0)
+        resize_shape = tf.stack([224, 224])
+        resize_shape_as_int = tf.cast(resize_shape, dtype=tf.int32)
+        resized_image = tf.image.resize_bilinear(decoded_image_4d,
+                                                   resize_shape_as_int)
+
+
+
+        predictions = sess.run(resized_image,{IMAGE_ENTRY: image_data})
+
+        # predictions = sess.run(bottleneck_tensor, {resized_input_tensor: resized_input_values})
         
         # Format predicted classes for display
         #   use np.squeeze to convert the tensor to a 1-d vector of probability values
