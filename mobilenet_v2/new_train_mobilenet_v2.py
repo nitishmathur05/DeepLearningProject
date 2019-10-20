@@ -1323,7 +1323,7 @@ if __name__ == '__main__':
       '--tfhub_module',
       type=str,
       default=(
-          'https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/4'),
+          'https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/3'),
       help="""\
       Which TensorFlow Hub module to use. For more options,
       search https://tfhub.dev for image feature vector modules.\
