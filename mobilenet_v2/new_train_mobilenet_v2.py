@@ -1172,7 +1172,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/mnt/project/MobileNet/MobileNet_V1/output_graph_oct_16.pb',
+      default='/mnt/project/MobileNet/MobileNet_V2/output_graph_oct_16.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(

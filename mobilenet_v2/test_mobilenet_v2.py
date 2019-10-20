@@ -60,7 +60,7 @@ def load_labels(label_file):
 if __name__ == "__main__":
   file_name = "tensorflow/examples/label_image/data/grace_hopper.jpg"
   model_file = \
-    "/mnt/project/MobileNet/MobileNet_V2/final_saved_model/saved_model.pb"
+    "/mnt/project/MobileNet/MobileNet_V1/output_graph_oct_16.pb"
   label_file = "/mnt/project/MobileNet/MobileNet_V2/output_labels_oct_16.txt"
   input_height = 224
   input_width = 224
