@@ -1148,7 +1148,7 @@ def main(_):
                    jpeg_data_tensor, decoded_image_tensor, resized_image_tensor,
                    bottleneck_tensor)
 
-    # Write out the trained graph and labels with the weights stored as
+    # Write out the trained graph and labels with the weights stored 
     # constants.
     tf.logging.info('Save final result to : ' + FLAGS.output_graph)
     if wants_quantization:
