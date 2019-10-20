@@ -58,7 +58,7 @@ def read_tensor_from_image_file(file_name,
   dims_expander = tf.expand_dims(float_caster, 0)
   resized = tf.image.resize_bilinear(dims_expander, [input_height, input_width])
   normalized = tf.divide(tf.subtract(resized, [input_mean]), [input_std])
-  sess = tfSession()
+  sess = tf.Session()
   result = sess.run(normalized)
 
   return result
@@ -75,14 +75,14 @@ def load_labels(label_file):
 if __name__ == "__main__":
   file_name = "tensorflow/examples/label_image/data/grace_hopper.jpg"
   model_file = \
-    "/mnt/project/InceptionV3/output_graph_inception_run_sep_27_8K.pb"
-  label_file = "/mnt/project/InceptionV3/output_labels_inception_run_sep_27_8K.txt"
+    "/mnt/project/MobileNet/MobileNet_V1/output_graph_oct_16.pb"
+  label_file = "/mnt/project/MobileNet/MobileNet_V1/output_labels_oct_16.txt"
   input_height = 299
   input_width = 299
   input_mean = 0
   input_std = 255
-  input_layer = "DecodeJpeg/contents:0"
-  output_layer = "final_result:0"
+  input_layer = "Placeholder"
+  output_layer = "final_result"
 
   parser = argparse.ArgumentParser()
   parser.add_argument("--image", help="image to be processed")
