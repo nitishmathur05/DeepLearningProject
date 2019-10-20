@@ -22,7 +22,8 @@ import time
 
 LABEL_PATH = "/mnt/project/MobileNet/MobileNet_V1/output_labels_oct_16.txt"
 MODEL_PATH = "/mnt/project/MobileNet/MobileNet_V1/output_graph_oct_16.pb"
-IMAGE_ENTRY = tf.placeholder(tf.string, name='DecodeJPGInput')
+IMAGE_ENTRY = tf.placeholder(tf.float32, [None, 224, 224, 3], name='DecodeJPGInput')
+# IMAGE_ENTRY = tf.placeholder(tf.float32, [None, 224, 224, 3])
 
 # MODEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_graph_inception_run_sep_13.pb"
 
