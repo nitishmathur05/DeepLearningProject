@@ -67,6 +67,15 @@ def predict_image_class(imagePath, labelPath):
 
         softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
         #   Get the predictions on our image by add the image data to the tensor
+        decoded_image = tf.image.decode_jpeg(IMAGE_ENTRY, channels=3)
+        # Convert from full range of uint8 to range [0,1] of float32.
+        decoded_image_as_float = tf.image.convert_image_dtype(decoded_image,
+                                                                tf.float32)
+        decoded_image_4d = tf.expand_dims(decoded_image_as_float, 0)
+        resize_shape = tf.stack([224, 224])
+        resize_shape_as_int = tf.cast(resize_shape, dtype=tf.int32)
+        resized_image = tf.image.resize_bilinear(decoded_image_4d,
+                                                   resize_shape_as_int)
 
         predictions = sess.run(softmax_tensor,{IMAGE_ENTRY: image_data})
 
