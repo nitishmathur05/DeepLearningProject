@@ -1178,7 +1178,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--intermediate_output_graphs_dir',
       type=str,
-      default='/mnt/project/MobileNet/MobileNet_V1/intermediate_graph/',
+      default='/mnt/project/MobileNet/MobileNet_V2/intermediate_graph/',
       help='Where to save the intermediate graphs.'
   )
   parser.add_argument(
@@ -1193,13 +1193,13 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_labels',
       type=str,
-      default='/mnt/project/MobileNet/MobileNet_V1/output_labels_oct_16.txt',
+      default='/mnt/project/MobileNet/MobileNet_V2/output_labels_oct_16.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
-      default='/mnt/project/MobileNet/MobileNet_V1/retrain_logs_oct_16',
+      default='/mnt/project/MobileNet/MobileNet_V2/retrain_logs_oct_16',
       help='Where to save summary logs for TensorBoard.'
   )
   parser.add_argument(
@@ -1273,7 +1273,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--bottleneck_dir',
       type=str,
-      default='/mnt/project/MobileNet/MobileNet_V1/bottleneck',
+      default='/mnt/project/MobileNet/MobileNet_V2/bottleneck',
       help='Path to cache bottleneck layer values as files.'
   )
   parser.add_argument(
@@ -1323,7 +1323,7 @@ if __name__ == '__main__':
       '--tfhub_module',
       type=str,
       default=(
-          'https://tfhub.dev/google/imagenet/mobilenet_v1_100_224/feature_vector/3'),
+          'https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/4'),
       help="""\
       Which TensorFlow Hub module to use. For more options,
       search https://tfhub.dev for image feature vector modules.\
@@ -1331,7 +1331,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--saved_model_dir',
       type=str,
-      default='',
+      default='/mnt/project/MobileNet/MobileNet_V2/',
       help='Where to save the exported graph.')
   parser.add_argument(
       '--logging_verbosity',
@@ -1342,7 +1342,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--checkpoint_path',
       type=str,
-      default='/mnt/project/MobileNet/MobileNet_V1/_retrain_checkpoint',
+      default='/mnt/project/MobileNet/MobileNet_V2/_retrain_checkpoint',
       help='Where to save checkpoint files.'
   )
   FLAGS, unparsed = parser.parse_known_args()
