@@ -128,7 +128,7 @@ if __name__ == "__main__":
   input_operation = graph.get_operation_by_name(input_name)
   output_operation = graph.get_operation_by_name(output_name)
 
-  with tf.compat.v1.Session(graph=graph) as sess:
+  with tf.Session(graph=graph) as sess:
     results = sess.run(output_operation.outputs[0], {
         input_operation.outputs[0]: t
     })
