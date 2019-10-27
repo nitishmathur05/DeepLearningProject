@@ -20,6 +20,7 @@ from tensorflow.python.keras.applications import ResNet50
 
 # ## Load data
 
+
 # #### Extract files from zip file
 
 # In[ ]:
