@@ -81,69 +81,65 @@ if __name__ == "__main__":
   with open(test_result_file,'w') as fd:
     fd.write("-"*10+"Mobilenet V1"+"-"*10)
     fd.write("\n")
-    with tf.Session(graph=graph) as sess:
-      try:
-        for correct_label in test_folders: 
 
-          pen = "-"*10 + " Label: " + correct_label + "-"*10
+    for correct_label in test_folders: 
+
+      pen = "-"*10 + " Label: " + correct_label + "-"*10
+      print (pen)
+      fd.write(pen + "\n")
+
+      pen = "Image \t Predicted Label \t Correct Label"
+      print(pen)
+      fd.write(pen + "\n")
+
+      folder_path = test_image_path + '/' + correct_label
+
+      for image in os.listdir(folder_path):
+        tot_imgs += 1
+        try:
+          file_name = folder_path + '/' + image
+          graph = load_graph(model_file)
+          t = read_tensor_from_image_file(file_name)
+
+          input_operation = graph.get_operation_by_name(input_name)
+          output_operation = graph.get_operation_by_name(output_name)
+
+          with tf.Session(graph=graph) as sess:
+            results = sess.run(output_operation.outputs[0], {
+                input_operation.outputs[0]: t
+            })
+          results = np.squeeze(results)
+
+          top_k = results.argsort()[-5:][::-1]
+          labels = load_labels(label_file)
+          
+          predicted_label = "Not confident enough"
+          if labels[0].startswith("non"):
+            labels[0] = "non_porn"
+
+
+          if results[0] > 0.7:
+            predicted_label = labels[0]
+
+          if predicted_label == correct_label:
+            correct_guess += 1
+
+          pen = file_name + "\t" +  predicted_label + "\t" + correct_label
           print (pen)
           fd.write(pen + "\n")
 
-          pen = "Image \t Predicted Label \t Correct Label"
-          print(pen)
-          fd.write(pen + "\n")
+        except:
+          pass
+      pen = "-"*10 + " Final Results " + "-"*10
+      print(pen)
+      fd.write(pen + "\n")
 
-          folder_path = test_image_path + '/' + correct_label
+      pen = "Total " + correct_label + " : " + str(len(folder_path))
+      fd.write(pen + "\n")
+      print (pen)
 
-          for image in os.listdir(folder_path):
-            tot_imgs += 1
-            try:
-              file_name = folder_path + '/' + image
-              graph = load_graph(model_file)
-              t = read_tensor_from_image_file(file_name)
-
-              input_operation = graph.get_operation_by_name(input_name)
-              output_operation = graph.get_operation_by_name(output_name)
-
-              
-              results = sess.run(output_operation.outputs[0], {
-                  input_operation.outputs[0]: t
-              })
-              results = np.squeeze(results)
-
-              top_k = results.argsort()[-5:][::-1]
-              labels = load_labels(label_file)
-              
-              predicted_label = "Not confident enough"
-              if labels[0].startswith("non"):
-                labels[0] = "non_porn"
-
-
-              if results[0] > 0.7:
-                predicted_label = labels[0]
-
-              if predicted_label == correct_label:
-                correct_guess += 1
-
-              pen = file_name + "\t" +  predicted_label + "\t" + correct_label
-              print (pen)
-              fd.write(pen + "\n")
-
-            except:
-              pass
-          pen = "-"*10 + " Final Results " + "-"*10
-          print(pen)
-          fd.write(pen + "\n")
-
-          pen = "Total " + correct_label + " : " + str(len(folder_path))
-          fd.write(pen + "\n")
-          print (pen)
-
-          pen = "Correct Predicted " + correct_label + " : " + str(correct_guess) 
-          fd.write(pen + "\n")
-          print (pen)
-
-      except:
-        pass
+      pen = "Correct Predicted " + correct_label + " : " + str(correct_guess) 
+      fd.write(pen + "\n")
+      print (pen)
 
   
