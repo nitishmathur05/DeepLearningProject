@@ -75,6 +75,7 @@ if __name__ == "__main__":
   test_result_file = '/mnt/project/NPDI/test_images_result/test_results_mobilnet_v2/results.txt'
 
   tot_imgs = 0
+  correct_guess = 0
 
   test_folders = os.listdir(test_image_path)
   with open(test_result_file,'w') as fd:
@@ -94,7 +95,7 @@ if __name__ == "__main__":
       folder_path = test_image_path + '/' + correct_label
       correct_guess = 0
       tot_folder_imgs = len(os.listdir(folder_path))
-      
+
       for image in os.listdir(folder_path):
         tot_imgs += 1
         try:
@@ -115,12 +116,13 @@ if __name__ == "__main__":
           labels = load_labels(label_file)
           
           predicted_label = "Not confident enough"
-          if labels[0].startswith("non"):
-            labels[0] = "non_porn"
+          for i in top_k:
+            if labels[i].startswith("non"):
+              labels[i] = "non_porn"
 
 
-          if results[0] > 0.7:
-            predicted_label = labels[0]
+            if results[i] > 0.7:
+              predicted_label = labels[i]
 
           if predicted_label == correct_label:
             correct_guess += 1
