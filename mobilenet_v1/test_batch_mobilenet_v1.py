@@ -75,10 +75,7 @@ if __name__ == "__main__":
   test_result_file = '/mnt/project/NPDI/test_images_result/test_results_mobilnet_v1/results.txt'
 
   tot_imgs = 0
-  tot_porn_imgs = 0
-  tot_non_porn_imgs = 0
-  correct_porn_guess = 0
-  correct_non_porn_guess = 0
+  correct_guess = 0
 
   test_folders = os.listdir(test_image_path)
   with open(test_result_file,'w') as fd:
@@ -117,7 +114,7 @@ if __name__ == "__main__":
               top_k = results.argsort()[-5:][::-1]
               labels = load_labels(label_file)
               
-              predicted_label = ''
+              predicted_label = "Not confident enough"
               if labels[0].startswith("non"):
                 labels[0] = "non_porn"
 
@@ -126,26 +123,25 @@ if __name__ == "__main__":
                 predicted_label = labels[0]
 
               if predicted_label == correct_label:
-                if predicted_label == "non_porn":
-                  correct_non_porn_guess += 1
-                elif predicted_label == "porn":
-                  correct_porn_guess += 1
-                else:
-                  predicted_label = "Not enough confident"
+                correct_guess += 1
 
-            pen = file_name + "\t" +  predicted_label + "\t" + correct_label
-            print (pen)
-            fd.write(pen + "\n")
+              pen = file_name + "\t" +  predicted_label + "\t" + correct_label
+              print (pen)
+              fd.write(pen + "\n")
 
-          except:
-            pass
-        pen = "-"*10 + " Final Results " + "-"*10
-        print(pen)
-        fd.write(pen + "\n")
+            except:
+              pass
+          pen = "-"*10 + " Final Results " + "-"*10
+          print(pen)
+          fd.write(pen + "\n")
 
-        pen = "Total " + correct_label + " : " + str(len(folder_path))
-        fd.write(pen + "\n")
-        print (pen)
+          pen = "Total " + correct_label + " : " + str(len(folder_path))
+          fd.write(pen + "\n")
+          print (pen)
+
+          pen = "Correct Predicted " + correct_label + " : " + str(correct_guess) 
+          fd.write(pen + "\n")
+          print (pen)
 
       except:
         pass
