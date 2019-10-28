@@ -60,8 +60,8 @@ def load_labels(label_file):
 
 if __name__ == "__main__":
   model_file = \
-    "/mnt/project/MobileNet/MobileNet_V1/output_graph_oct_16.pb"
-  label_file = "/mnt/project/MobileNet/MobileNet_V1/output_labels_oct_16.txt"
+    "/mnt/project/MobileNet/MobileNet_V2/output_graph_oct_16.pb"
+  label_file = "/mnt/project/MobileNet/MobileNet_V2/output_labels_oct_16.txt"
   input_height = 224
   input_width = 224
   input_mean = 0
@@ -72,14 +72,13 @@ if __name__ == "__main__":
   output_name = "import/" + output_layer
 
   test_image_path = '/mnt/project/NPDI/test_images'
-  test_result_file = '/mnt/project/NPDI/test_images_result/test_results_mobilnet_v1/results.txt'
+  test_result_file = '/mnt/project/NPDI/test_images_result/test_results_mobilnet_v2/results.txt'
 
   tot_imgs = 0
-  correct_guess = 0
 
   test_folders = os.listdir(test_image_path)
   with open(test_result_file,'w') as fd:
-    fd.write("-"*10+"Mobilenet V1"+"-"*10)
+    fd.write("-"*10+"Mobilenet V2"+"-"*10)
     fd.write("\n")
 
     for correct_label in test_folders: 
@@ -95,7 +94,7 @@ if __name__ == "__main__":
       folder_path = test_image_path + '/' + correct_label
       correct_guess = 0
       tot_folder_imgs = len(os.listdir(folder_path))
-
+      
       for image in os.listdir(folder_path):
         tot_imgs += 1
         try:
@@ -116,13 +115,12 @@ if __name__ == "__main__":
           labels = load_labels(label_file)
           
           predicted_label = "Not confident enough"
-          for i in top_k:
-            if labels[i].startswith("non"):
-              labels[i] = "non_porn"
+          if labels[0].startswith("non"):
+            labels[0] = "non_porn"
 
 
-            if results[i] > 0.7:
-              predicted_label = labels[i]
+          if results[0] > 0.7:
+            predicted_label = labels[0]
 
           if predicted_label == correct_label:
             correct_guess += 1
