@@ -88,7 +88,7 @@ if __name__ == "__main__":
       print (pen)
       fd.write(pen + "\n")
 
-      pen = "Image \t Predicted Label \t Correct Label"
+      pen = "Image \t Predicted Label \t Correct Label \t Guess"
       print(pen)
       fd.write(pen + "\n")
 
@@ -98,6 +98,7 @@ if __name__ == "__main__":
 
       for image in os.listdir(folder_path):
         tot_imgs += 1
+        guess = "incorrect"
         try:
           file_name = folder_path + '/' + image
           graph = load_graph(model_file)
@@ -121,13 +122,14 @@ if __name__ == "__main__":
               labels[i] = "non_porn"
 
 
-            if results[i] > 0.7:
+            if results[i] > 0.7 and labels[i] == "porn":
               predicted_label = labels[i]
 
           if predicted_label == correct_label:
             correct_guess += 1
+            guess = "correct"
 
-          pen = image + "\t" +  predicted_label + "\t" + correct_label
+          pen = image + "\t" +  predicted_label + "\t" + correct_label + "\t" + guess
           print (pen)
           fd.write(pen + "\n")
 
