@@ -60,8 +60,8 @@ def load_labels(label_file):
 
 if __name__ == "__main__":
   model_file = \
-    "/mnt/project/MobileNet/MobileNet_V1/output_graph_oct_16.pb"
-  label_file = "/mnt/project/MobileNet/MobileNet_V1/output_labels_oct_16.txt"
+    "/mnt/project/MobileNet/MobileNet_V1/output_graph_oct_31_flip.pb"
+  label_file = "/mnt/project/MobileNet/MobileNet_V1/output_labels_oct_31_flip.txt"
   input_height = 224
   input_width = 224
   input_mean = 0
@@ -72,7 +72,7 @@ if __name__ == "__main__":
   output_name = "import/" + output_layer
 
   test_image_path = '/mnt/project/NPDI/test_images'
-  test_result_file = '/mnt/project/NPDI/test_images_result/test_results_mobilnet_v1/results.txt'
+  test_result_file = '/mnt/project/NPDI/test_images_result/test_results_mobilnet_v1/results_oct_31.txt'
 
   tot_imgs = 0
   correct_guess = 0
