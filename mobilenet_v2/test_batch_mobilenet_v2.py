@@ -112,7 +112,7 @@ if __name__ == "__main__":
                 input_operation.outputs[0]: t
             })
           results = np.squeeze(results)
-
+          sess.close()
           top_k = results.argsort()[-5:][::-1]
           labels = load_labels(label_file)
           
