@@ -121,9 +121,9 @@ if __name__ == "__main__":
             if labels[i].startswith("non"):
               labels[i] = "non_porn"
 
+            predicted_label = labels[i]
 
-            if results[i] > 0.7 and labels[i] == "porn":
-              predicted_label = labels[i]
+            break;
 
           if predicted_label == correct_label:
             correct_guess += 1
