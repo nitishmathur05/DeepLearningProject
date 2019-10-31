@@ -983,7 +983,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--random_scale',
       type=int,
-      default=10,
+      default=0,
       help="""\
       A percentage determining how much to randomly scale up the size of the
       training images by.\
