@@ -1172,7 +1172,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/mnt/project/MobileNet/MobileNet_V2/output_graph_oct_16.pb',
+      default='/mnt/project/MobileNet/MobileNet_V2/output_graph_oct_31.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
@@ -1193,19 +1193,19 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_labels',
       type=str,
-      default='/mnt/project/MobileNet/MobileNet_V2/output_labels_oct_16.txt',
+      default='/mnt/project/MobileNet/MobileNet_V2/output_labels_oct_31.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
-      default='/mnt/project/MobileNet/MobileNet_V2/retrain_logs_oct_16',
+      default='/mnt/project/MobileNet/MobileNet_V2/retrain_logs_oct_31',
       help='Where to save summary logs for TensorBoard.'
   )
   parser.add_argument(
       '--how_many_training_steps',
       type=int,
-      default=4000,
+      default=20000,
       help='How many training steps to run before ending.'
   )
   parser.add_argument(
