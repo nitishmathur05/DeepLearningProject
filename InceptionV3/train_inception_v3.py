@@ -843,7 +843,7 @@ def main(_):
   with gfile.FastGFile(FLAGS.output_labels, 'w') as f:
     f.write('\n'.join(image_lists.keys()) + '\n')
 
-# Train time = 
+# Train time = 105m39.674
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
@@ -856,19 +856,19 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/mnt/project/InceptionV3/output_graph_inception_run_oct_31_flip.pb',
+      default='/mnt/project/InceptionV3/output_graph_inception_run_nov_1.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--output_labels',
       type=str,
-      default='/mnt/project/InceptionV3/output_labels_inception_run_oct_31_flip.txt',
+      default='/mnt/project/InceptionV3/output_labels_inception_run_nov_1.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
-      default='/mnt/project/InceptionV3/retrain_logs_oct_31_flip',
+      default='/mnt/project/InceptionV3/retrain_logs_nov_1',
       help='Where to save summary logs for TensorBoard.'
   )
   parser.add_argument(
@@ -965,7 +965,7 @@ if __name__ == '__main__':
   )
   parser.add_argument(
       '--flip_left_right',
-      default=False,
+      default=True,
       help="""\
       Whether to randomly flip half of the training images horizontally.\
       """,
