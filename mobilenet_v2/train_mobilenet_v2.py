@@ -1044,7 +1044,7 @@ def main(_):
     if FLAGS.saved_model_dir:
       export_model(module_spec, class_count, FLAGS.saved_model_dir)
 
-# Training Time Taken = 28m35.445s
+# Training Time Taken = 48m38.273s
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()

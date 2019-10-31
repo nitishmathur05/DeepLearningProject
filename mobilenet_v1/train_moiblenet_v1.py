@@ -1172,7 +1172,7 @@ if __name__ == '__main__':
   )
   parser.add_argument(
       '--flip_left_right',
-      default=True,
+      default=False,
       help="""\
       Whether to randomly flip half of the training images horizontally.\
       """,
