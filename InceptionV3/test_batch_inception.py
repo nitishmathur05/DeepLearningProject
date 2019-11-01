@@ -81,6 +81,8 @@ def predict_image_class(imagePath, labelPath):
     for node_id in top_k:
       human_string = labels[node_id]
       score = predictions[node_id]
+      if human_string.startswith("non"):
+        human_string ="non_porn"
       break;
 
 
