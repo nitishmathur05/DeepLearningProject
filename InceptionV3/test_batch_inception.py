@@ -79,13 +79,9 @@ def predict_image_class(imagePath, labelPath):
     print ("Image Classification Probabilities")
     #   Output the class probabilites in descending order
     for node_id in top_k:
-        human_string = labels[node_id]
-        score = predictions[node_id]
-        if "non porn" == human_string:
-          object_details["non_porn"] = score
-        else:
-          object_details[human_string] = score
-        print('{0:s} (score = {1:.5f})'.format(human_string, score))
+      human_string = labels[node_id]
+      score = predictions[node_id]
+      break;
 
 
   sess.close()
