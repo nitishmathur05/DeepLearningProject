@@ -1,150 +1,152 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
-import argparse
-
-import numpy as np
+#   Imports
 import tensorflow as tf
-import os
+import numpy as np
+import argparse
+import time
+
+# Paths to files producted as part of retraining Inception.  Change these if you saved your files in
+#   a different location.
+#   Retrained graph
 
 
-def load_graph(model_file):
-  graph = tf.Graph()
-  graph_def = tf.GraphDef()
 
-  with open(model_file, "rb") as f:
-    graph_def.ParseFromString(f.read())
-  with graph.as_default():
-    tf.import_graph_def(graph_def)
+MODEL_PATH = "/mnt/project/InceptionV3/output_graph_inception_run_oct_31_flip.pb"
 
-  return graph
+LABEL_PATH = "/mnt/project/InceptionV3/output_labels_inception_run_oct_31_flip.txt"
+IMAGE_ENTRY = 'DecodeJpeg/contents:0'
 
 
-def read_tensor_from_image_file(file_name,
-                                input_height=224,
-                                input_width=224,
-                                input_mean=0,
-                                input_std=255):
-  input_name = "file_reader"
-  output_name = "normalized"
-  file_reader = tf.read_file(file_name, input_name)
-  if file_name.endswith(".png"):
-    image_reader = tf.image.decode_png(
-        file_reader, channels=3, name="png_reader")
-  elif file_name.endswith(".gif"):
-    image_reader = tf.squeeze(
-        tf.image.decode_gif(file_reader, name="gif_reader"))
-  elif file_name.endswith(".bmp"):
-    image_reader = tf.image.decode_bmp(file_reader, name="bmp_reader")
-  else:
-    image_reader = tf.image.decode_jpeg(
-        file_reader, channels=3, name="jpeg_reader")
-  float_caster = tf.cast(image_reader, tf.float32)
-  dims_expander = tf.expand_dims(float_caster, 0)
-  resized = tf.image.resize_bilinear(dims_expander, [input_height, input_width])
-  normalized = tf.divide(tf.subtract(resized, [input_mean]), [input_std])
-  sess = tf.Session()
-  result = sess.run(normalized)
-
-  return result
 
 
-def load_labels(label_file):
-  label = []
-  proto_as_ascii_lines = tf.gfile.GFile(label_file).readlines()
-  for l in proto_as_ascii_lines:
-    label.append(l.rstrip())
-  return label
+
+# LABEL_PATH = "/mnt/project/MobileNet/output_labels_mobilenet_run_oct_13_8K.txt"
+# MODEL_PATH = "/mnt/project/MobileNet/output_graph_mobilenet_run_oct_13_8K.pb"
+# IMAGE_ENTRY = 'input:0'
+# IMAGE_ENTRY = 'DecodeJPGInput/contents:0'
+
+# MODEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_graph_inception_run_sep_13.pb"
+
+# LABEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_labels_inception_run_sep_13.txt"
+
+def filter_delimiters(text):
+  filtered = text[:-3]
+  filtered = filtered.strip("b'")
+  filtered = filtered.strip("'")
+  return filtered
 
 
-if __name__ == "__main__":
-  model_file = \
-    "/mnt/project/InceptionV3/output_graph_inception_run_oct_31_flip.pb"
-  label_file = "/mnt/project/InceptionV3/output_labels_inception_run_oct_31_flip.txt"
-  input_height = 224
-  input_width = 224
-  input_mean = 0
-  input_std = 255
-  input_layer = "DecodeJpeg/contents"
-  output_layer = "final_result"
-  input_name = "import/" + input_layer
-  output_name = "import/" + output_layer
+def predict_image_class(test_image_path, labelPath):
+  
+  matches = None # Default return to none
 
-  test_image_path = '/mnt/project/NPDI/test_images'
-  test_result_file = '/mnt/project/NPDI/test_images_result/test_results_mobilnet_v2/results_oct_31.txt'
-
+  
   tot_imgs = 0
   correct_guess = 0
 
   test_folders = os.listdir(test_image_path)
   with open(test_result_file,'w') as fd:
-    fd.write("-"*10+"Mobilenet V2"+"-"*10)
+    fd.write("-"*10+"Inception V3"+"-"*10)
     fd.write("\n")
 
-    for correct_label in test_folders: 
+    # Load the retrained inception based graph
+    with tf.gfile.FastGFile(MODEL_PATH, 'rb') as f:
+        # init GraphDef object
+        graph_def = tf.GraphDef()
+        # Read in the graphy from the file
+        graph_def.ParseFromString(f.read())
+        _ = tf.import_graph_def(graph_def, name='')
+      # this point the retrained graph is the default graph
 
-      pen = "-"*10 + " Label: " + correct_label + "-"*10
-      print (pen)
-      fd.write(pen + "\n")
+    with tf.Session() as sess:
+      # These 2 lines are the code that does the classification of the images 
+      # using the new classes we retrained Inception to recognize. 
+      #   We find the final result tensor by name in the retrained model
+      # Load the image from file
 
-      pen = "Image \t Predicted Label \t Correct Label \t Guess"
-      print(pen)
-      fd.write(pen + "\n")
+      for correct_label in test_folders: 
 
-      folder_path = test_image_path + '/' + correct_label
-      correct_guess = 0
-      tot_folder_imgs = len(os.listdir(folder_path))
+        pen = "-"*10 + " Label: " + correct_label + "-"*10
+        print (pen)
+        fd.write(pen + "\n")
 
-      for image in os.listdir(folder_path):
-        tot_imgs += 1
-        guess = "incorrect"
-        try:
-          file_name = folder_path + '/' + image
-          graph = load_graph(model_file)
-          t = read_tensor_from_image_file(file_name)
+        pen = "Image \t Predicted Label \t Correct Label \t Guess"
+        print(pen)
+        fd.write(pen + "\n")
 
-          input_operation = graph.get_operation_by_name(input_name)
-          output_operation = graph.get_operation_by_name(output_name)
+        folder_path = test_image_path + '/' + correct_label
+        correct_guess = 0
+        tot_folder_imgs = len(os.listdir(folder_path))
 
-          with tf.Session(graph=graph) as sess:
-            results = sess.run(output_operation.outputs[0], {
-                input_operation.outputs[0]: t
-            })
-          results = np.squeeze(results)
-          sess.close()
-          top_k = results.argsort()[-5:][::-1]
-          labels = load_labels(label_file)
-          
-          predicted_label = "Not confident enough"
-          for i in top_k:
-            if labels[i].startswith("non"):
-              labels[i] = "non_porn"
+        for image in os.listdir(folder_path):
+          tot_imgs += 1
+          guess = "incorrect"
 
-            predicted_label = labels[i]
+          try:
+            image_data = tf.gfile.FastGFile(image, 'rb').read()
 
-            break;
+            softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
+            #   Get the predictions on our image by add the image data to the tensor
+            predictions = sess.run(softmax_tensor,{IMAGE_ENTRY: image_data})
+            
+            # Format predicted classes for display
+            #   use np.squeeze to convert the tensor to a 1-d vector of probability values
+            predictions = np.squeeze(predictions)
 
-          if predicted_label == correct_label:
-            correct_guess += 1
-            guess = "correct"
+            top_k = predictions.argsort()[-5:][::-1]  # Getting the indicies of the top 5 predictions
 
-          pen = image + "\t" +  predicted_label + "\t" + correct_label + "\t" + guess
-          print (pen)
-          fd.write(pen + "\n")
+            #   read the class labels in from the label file
+            f = open(labelPath, 'rb')
+            lines = f.readlines()
+            labels = [str(w).replace("\n", "") for w in lines]
+            print("")
+            print ("Image Classification Probabilities")
+            #   Output the class probabilites in descending order
 
-        except:
-          pass
-      pen = "-"*10 + " Final Results " + "-"*10
-      print(pen)
-      fd.write(pen + "\n")
+            predicted_label = "Not confident enough"
+            for node_id in top_k:
+              human_string = self.filter_delimiters(labels[node_id])
+              score = predictions[node_id]
+              if "non porn" == str(human_string):
+                human_string = "non_porn"
 
-      pen = "Total " + correct_label + " : " + str(tot_folder_imgs)
-      fd.write(pen + "\n")
-      print (pen)
+              predicted_label = labels[i]
+              break;
 
-      pen = "Correct Predicted " + correct_label + " : " + str(correct_guess) 
-      fd.write(pen + "\n")
-      print (pen)
+            if predicted_label == correct_label:
+              correct_guess += 1
+              guess = "correct"
 
+            pen = image + "\t" +  predicted_label + "\t" + correct_label + "\t" + guess
+            print (pen)
+            fd.write(pen + "\n")
+          except:
+            pass
+
+        pen = "-"*10 + " Final Results " + "-"*10
+        print(pen)
+        fd.write(pen + "\n")
+
+        pen = "Total " + correct_label + " : " + str(tot_folder_imgs)
+        fd.write(pen + "\n")
+        print (pen)
+
+        pen = "Correct Predicted " + correct_label + " : " + str(correct_guess) 
+        fd.write(pen + "\n")
+        print (pen)
+
+
+if __name__ == '__main__':
+  
+  # Ensure the user passes the image_path
+  parser = argparse.ArgumentParser(description="Process arguments")
+  test_image_path = '/mnt/project/NPDI/test_images'
+  args = parser.parse_args()
+
+  # We can only handle jpeg images.   
+  if args.image_path.lower().endswith(('.jpg', '.jpeg')):
+    # predict the class of the image
+    predict_image_class(test_image_path, LABEL_PATH)
+  else:
+    print('File must be a jpeg image.')
   

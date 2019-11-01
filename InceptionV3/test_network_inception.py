@@ -11,9 +11,9 @@ import time
 
 
 
-MODEL_PATH = "/mnt/project/InceptionV3/output_graph_inception_run_sep_27_8K.pb"
+MODEL_PATH = "/mnt/project/InceptionV3/output_graph_inception_run_oct_31_flip.pb"
 
-LABEL_PATH = "/mnt/project/InceptionV3/output_labels_inception_run_sep_27_8K.txt"
+LABEL_PATH = "/mnt/project/InceptionV3/output_labels_inception_run_oct_31_flip.txt"
 IMAGE_ENTRY = 'DecodeJpeg/contents:0'
 
 
