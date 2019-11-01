@@ -143,10 +143,6 @@ if __name__ == '__main__':
   test_image_path = '/mnt/project/NPDI/test_images'
   args = parser.parse_args()
 
-  # We can only handle jpeg images.   
-  if args.image_path.lower().endswith(('.jpg', '.jpeg')):
-    # predict the class of the image
-    predict_image_class(test_image_path, LABEL_PATH)
-  else:
-    print('File must be a jpeg image.')
+  predict_image_class(test_image_path, LABEL_PATH)
+  
   
