@@ -44,7 +44,7 @@ def predict_image_class(test_image_path, labelPath):
   
   tot_imgs = 0
   correct_guess = 0
-
+  test_result_file = '/mnt/project/NPDI/test_images_result/test_results_inception/results_oct_31.txt'
   test_folders = os.listdir(test_image_path)
   with open(test_result_file,'w') as fd:
     fd.write("-"*10+"Inception V3"+"-"*10)
