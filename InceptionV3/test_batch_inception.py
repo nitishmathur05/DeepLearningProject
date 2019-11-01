@@ -30,9 +30,8 @@ IMAGE_ENTRY = 'DecodeJpeg/contents:0'
 # LABEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_labels_inception_run_sep_13.txt"
 
 def filter_delimiters(text):
-  filtered = text[:-3]
-  filtered = filtered.strip("b'")
-  filtered = filtered.strip("'")
+  filtered = text.decode("utf-8")
+  filtered = filtered[:-1]
   return filtered
 
 
@@ -80,7 +79,7 @@ def predict_image_class(imagePath, labelPath):
     print ("Image Classification Probabilities")
     #   Output the class probabilites in descending order
     for node_id in top_k:
-        human_string = self.filter_delimiters(labels[node_id])
+        human_string = filter_delimiters(labels[node_id])
         score = predictions[node_id]
         if "non porn" == str(human_string):
           object_details["non_porn"] = score
