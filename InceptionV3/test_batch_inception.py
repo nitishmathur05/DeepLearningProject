@@ -72,22 +72,21 @@ def predict_image_class(imagePath, labelPath):
     top_k = predictions.argsort()[-5:][::-1]  # Getting the indicies of the top 5 predictions
 
     #   read the class labels in from the label file
-    f = open(labelPath, 'rb')
+    f = open(labelPath, 'r')
     lines = f.readlines()
     labels = [str(w).replace("\n", "") for w in lines]
     print("")
     print ("Image Classification Probabilities")
     #   Output the class probabilites in descending order
     for node_id in top_k:
-        human_string = filter_delimiters(labels[node_id])
+        human_string = labels[node_id]
         score = predictions[node_id]
-        if "non porn" == str(human_string):
+        if "non porn" == human_string:
           object_details["non_porn"] = score
         else:
-          object_details[str(human_string)] = score
+          object_details[human_string] = score
         print('{0:s} (score = {1:.5f})'.format(human_string, score))
 
-      print("")
 
   sess.close()
   return human_string
