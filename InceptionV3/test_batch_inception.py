@@ -4,6 +4,7 @@ import tensorflow as tf
 import numpy as np
 import argparse
 import time
+import os
 
 # Paths to files producted as part of retraining Inception.  Change these if you saved your files in
 #   a different location.
