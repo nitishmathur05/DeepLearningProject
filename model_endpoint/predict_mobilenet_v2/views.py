@@ -75,6 +75,7 @@ class TestModel(APIView):
 			return Response({'message': 'Error in processing the request', 'status': 'Error'}, status.HTTP_400_BAD_REQUEST,
 							content_type='application/json')
 
+# This function will process the image recieved and return the confidence 
 	def predict_image_class(self, image_path, lablelPath, object_details, modelPath):
 		graph = tf.Graph()
 		graph_def = tf.GraphDef()
