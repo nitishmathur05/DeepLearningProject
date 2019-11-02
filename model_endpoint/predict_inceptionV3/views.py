@@ -76,7 +76,6 @@ class TestModel(APIView):
 
 
 # This function will process the image recieved and return the confidence 
-
 	def predict_image_class(self, imagePath, labelPath, object_details):
 	
 		matches = None # Default return to none
