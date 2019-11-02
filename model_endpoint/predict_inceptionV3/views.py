@@ -54,7 +54,7 @@ class TestModel(APIView):
 
 			start = time.time()
 			object_details = self.predict_image_class(image_path, LABEL_PATH, object_details)
-			object_details['url'] = 'http://' + str(IPAddr) + ':8989/media/' + str(image_obj.image) 
+			object_details['url'] = 'http://' + str(IPAddr) + ':80/media/' + str(image_obj.image) 
 
 			print ("Time to create session and classify-",(time.time()-start))
 
