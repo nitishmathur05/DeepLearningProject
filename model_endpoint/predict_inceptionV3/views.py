@@ -40,7 +40,6 @@ MODEL_PATH = "/mnt/project/InceptionV3/output_graph_inception_run_oct_31_flip.pb
 LABEL_PATH = "/mnt/project/InceptionV3/output_labels_inception_run_oct_31_flip.txt"
 
 
-
 class TestModel(APIView):
 	queryset = UploadImage.objects.all()
 	serializer_class = ImageSerializer
@@ -75,6 +74,8 @@ class TestModel(APIView):
 			return Response({'message': 'Error in processing the request', 'status': 'Error'}, status.HTTP_400_BAD_REQUEST,
 							content_type='application/json')
 
+
+# This function will process the image recieved and return the confidence 
 
 	def predict_image_class(self, imagePath, labelPath, object_details):
 	
