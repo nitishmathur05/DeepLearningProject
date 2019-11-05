@@ -1,10 +1,22 @@
-# Deep Learning for the Classification of Adult Images and its Utilization in Social Applications
+# _Deep Learning for the Classification of Adult Images and its Utilization in Social Applications_
 
-A chat application that is capable of identifying and masking pornographic images is developed. 3 models are used as part of this project:
+A chat application that is capable of identifying and masking pornographic images is developed. `3 Models` are used as part of this project:
 
 1. MobileNet v1
 2. MobileNet v2
 3. Inception v3
+
+The project includes two `iOS Application`:
+
+1. APITest 
+2. ChatApplication
+
+Project requirements:
+
+- [x] Swift 4
+- [x] XCode 11
+- [x] TensorFlow 1.12.3
+- [x] Python 3.6
 
 
 - Train
