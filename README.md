@@ -62,7 +62,7 @@ The project includes code to create an `API endpoint` to for serving iOS Applica
 
 - [x] pip install requirements.txt
 
-#### Extra information to test the test image;
+#### Extra information to test the test image:
 
 * http://45.113.235.180:80/mobilenetV1/test
 * http://45.113.235.180:80/mobilenetV2/test

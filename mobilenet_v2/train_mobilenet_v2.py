@@ -571,8 +571,6 @@ def logging_level_verbosity(logging_verbosity):
 
 
 def main(_):
-  # Needed to make sure the logging output is visible.
-  # See https://github.com/tensorflow/tensorflow/issues/3047
   logging_verbosity = logging_level_verbosity(FLAGS.logging_verbosity)
   tf.logging.set_verbosity(logging_verbosity)
 
