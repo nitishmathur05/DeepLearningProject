@@ -1,5 +1,6 @@
 import tensorflow as tf
 
+# This functions loads the fronzen graph file
 def load_graph(frozen_graph_filename):
     with tf.gfile.FastGFile(frozen_graph_filename, 'rb') as f:
         graph_def = tf.GraphDef()
@@ -8,6 +9,7 @@ def load_graph(frozen_graph_filename):
         tf.import_graph_def(graph_def)
     return graph
 
+# This function analyses the graph and outputs the input output layer name
 def analyze_inputs_outputs(graph):
     ops = graph.get_operations()
     outputs_set = set(ops)

@@ -11,12 +11,15 @@ The project includes two `iOS Application`:
 1. APITest 
 2. ChatApplication
 
+The project includes code to create an `API endpoint` to for serving iOS Applications
+
 #### Project requirements:
 
 - [x] Swift 4
-- [x] XCode 11
+- [x] XCode 11.1
 - [x] TensorFlow 1.12.3
 - [x] Python 3.6
+- [x] Django
 
 
 ### Steps to run the iOS Applications:
@@ -50,8 +53,17 @@ The project includes two `iOS Application`:
 2. To Train - `python train.py`.
 3. To Test - `python test.py`.
 
+### Steps to run API endpoint:
+
+1. Go to models_endpoint.2
+2. `python manage.py runserver 0:80`
+
 #### Dependencies used for Python Models:
 
 - [x] pip install requirements.txt
 
+#### Extra information to test the test image;
 
+* http://45.113.235.180:80/mobilenetV1/test
+* http://45.113.235.180:80/mobilenetV2/test
+* http://45.113.235.180:80/inceptionV3/test

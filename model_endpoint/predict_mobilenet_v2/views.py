@@ -39,8 +39,6 @@ MODEL_PATH = "/mnt/project/MobileNet/MobileNet_V2/output_graph_oct_16.pb"
 
 LABEL_PATH = "/mnt/project/MobileNet/MobileNet_V2/output_labels_oct_16.txt"
 
-
-
 class TestModel(APIView):
 	queryset = UploadImage.objects.all()
 	serializer_class = ImageSerializer

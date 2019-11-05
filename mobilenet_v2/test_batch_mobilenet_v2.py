@@ -8,7 +8,6 @@ import numpy as np
 import tensorflow as tf
 import os
 
-
 def load_graph(model_file):
   graph = tf.Graph()
   graph_def = tf.GraphDef()
@@ -19,7 +18,6 @@ def load_graph(model_file):
     tf.import_graph_def(graph_def)
 
   return graph
-
 
 def read_tensor_from_image_file(file_name,
                                 input_height=224,

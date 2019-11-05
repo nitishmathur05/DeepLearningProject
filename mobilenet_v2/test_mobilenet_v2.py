@@ -1,12 +1,9 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
 import argparse
-
 import numpy as np
 import tensorflow as tf
-
 
 def load_graph(model_file):
   graph = tf.Graph()
@@ -18,7 +15,6 @@ def load_graph(model_file):
     tf.import_graph_def(graph_def)
 
   return graph
-
 
 def read_tensor_from_image_file(file_name,
                                 input_height=299,
@@ -58,7 +54,6 @@ def load_labels(label_file):
 
 
 if __name__ == "__main__":
-  file_name = "tensorflow/examples/label_image/data/grace_hopper.jpg"
   model_file = \
     "/mnt/project/MobileNet/MobileNet_V2/output_graph_oct_16.pb"
   label_file = "/mnt/project/MobileNet/MobileNet_V2/output_labels_oct_16.txt"
