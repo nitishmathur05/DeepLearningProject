@@ -1,4 +1,11 @@
-# DeepLearningProject
+# Deep Learning for the Classification of Adult Images and its Utilization in Social Applications
+
+A chat application that is capable of identifying and masking pornographic images is developed. 3 models are used as part of this project:
+
+1. MobileNet v1
+2. MobileNet v2
+3. Inception v3
+
 
 - Train
 python network_trainer.py --image_dir /mnt/project/NPDI/Frames 
