@@ -1,33 +1,12 @@
-
-#   Imports
 import tensorflow as tf
 import numpy as np
 import argparse
 import time
 
-# Paths to files producted as part of retraining Inception.  Change these if you saved your files in
-#   a different location.
-#   Retrained graph
-
-
-
 MODEL_PATH = "/mnt/project/InceptionV3/output_graph_inception_run_oct_31_flip.pb"
 
 LABEL_PATH = "/mnt/project/InceptionV3/output_labels_inception_run_oct_31_flip.txt"
 IMAGE_ENTRY = 'DecodeJpeg/contents:0'
-
-
-
-
-
-# LABEL_PATH = "/mnt/project/MobileNet/output_labels_mobilenet_run_oct_13_8K.txt"
-# MODEL_PATH = "/mnt/project/MobileNet/output_graph_mobilenet_run_oct_13_8K.pb"
-# IMAGE_ENTRY = 'input:0'
-# IMAGE_ENTRY = 'DecodeJPGInput/contents:0'
-
-# MODEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_graph_inception_run_sep_13.pb"
-
-# LABEL_PATH = "/Users/nitishmathur/Unimelb/Computing project/Trained_Models/output_labels_inception_run_sep_13.txt"
 
 def filter_delimiters(text):
 	filtered = text[:-3]
@@ -39,9 +18,7 @@ def filter_delimiters(text):
 def predict_image_class(imagePath, labelPath):
 	
 	matches = None # Default return to none
-
 	
-
 	# Load the image from file
 	image_data = tf.gfile.FastGFile(imagePath, 'rb').read()
 
@@ -55,9 +32,6 @@ def predict_image_class(imagePath, labelPath):
 		# this point the retrained graph is the default graph
 
 	with tf.Session() as sess:
-		# These 2 lines are the code that does the classification of the images 
-		# using the new classes we retrained Inception to recognize. 
-		#   We find the final result tensor by name in the retrained model
 		start = time.time()
 		if not tf.gfile.Exists(imagePath):
 			tf.logging.fatal('File does not exist %s', imagePath)
