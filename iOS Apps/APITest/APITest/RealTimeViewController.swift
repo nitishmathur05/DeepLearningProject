@@ -13,7 +13,7 @@ import Vision
 class RealTimeViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     var mainViewController: MainViewController?
-    
+    var modelName:String = ""
     let nonPornLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.8036971831)
@@ -99,7 +99,20 @@ class RealTimeViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
         
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
-        guard let model = try? VNCoreMLModel(for: frames().model) else { return }
+        let mlModel:MLModel
+               
+        if modelName == "frames_mv1" {
+           //Use the MobileNet v1 model
+           mlModel = frames_mv1().model
+        } else if modelName == "frames_mv2" {
+            //Use the MobileNet v2 model
+            mlModel = frames_mv2().model
+        } else{
+        //Use the fefault model (MobileNet v1 model)
+        mlModel = frames_mv1().model
+        }
+        
+        guard let model = try? VNCoreMLModel(for: mlModel) else { return }
         let request = VNCoreMLRequest(model: model) { (finishedReq, err) in
             
             guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
@@ -107,7 +120,7 @@ class RealTimeViewController: UIViewController, AVCaptureVideoDataOutputSampleBu
             DispatchQueue.main.async {
                 for result in results {
                     let confidence = Float(round(Float(result.confidence)*10000))
-                    if result.identifier == "non_porn" {
+                    if result.identifier == "non porn" {
                        self.nonPornLabel.text = "Non-Porn: \(confidence/100)%"
                     } else {
                         self.pornLabel.text = "Porn: \(confidence/100)%"

@@ -201,11 +201,11 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         let mobileNetV1OnDevice = UIAlertAction(title: "MobileNet V1 (On Device)", style: .default) { action in
-            self.presentRealTimeView()
+            self.presentRealTimeView(realTimeModelName: "frames_mv1")
         }
         
         let mobileNetV2OnDevice = UIAlertAction(title: "MobileNet V2 (On Device)", style: .default) { action in
-            self.presentRealTimeView()
+            self.presentRealTimeView(realTimeModelName: "frames_mv1")
         }
 
         actionSheet.addAction(mobileNetV1OnDevice)
@@ -219,9 +219,10 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }.first?.isActive = false
     }
     
-    @objc func presentRealTimeView() {
+    @objc func presentRealTimeView(realTimeModelName: String) {
         let realTimeViewController = RealTimeViewController()
         realTimeViewController.modalPresentationStyle = .fullScreen
+        realTimeViewController.modelName = realTimeModelName
         realTimeViewController.mainViewController = self
         let navController = UINavigationController(rootViewController: realTimeViewController)
         navController.modalPresentationStyle = .fullScreen
@@ -269,11 +270,11 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         let mobileNetV1OnDevice = UIAlertAction(title: "MobileNet V1 (On Device)", style: .default) { action in
-            self.callOnDeviceModel()
+            self.callOnDeviceModel(witModelName: "frames_mv1")
         }
         
         let mobileNetV2OnDevice = UIAlertAction(title: "MobileNet V2 (On Device)", style: .default) { action in
-            self.callOnDeviceModel()
+            self.callOnDeviceModel(witModelName: "frames_mv2")
         }
 
         actionSheet.addAction(inception)
@@ -532,21 +533,29 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         inferenceTimeLabel.text = "-"
     }
     
-    func callOnDeviceModel() {
+    func callOnDeviceModel(witModelName modelName:String) {
         guard let pickedImage = imageView.image else { return }
         resetStats()
         statusLabel.text = "Sending Request"
-        
+        print (modelName)
+        print (type(of: modelName))
         
         let start = DispatchTime.now()
         
         
+        let mlModel:MLModel
         
-        
-        // Get the model
-        guard let model = try? VNCoreMLModel(for: frames().model) else {
-            fatalError("Unable to load model")
+        if modelName == "frames_mv1" {
+            //Use the MobileNet v1 model
+            mlModel = frames_mv1().model
+        } else if modelName == "frames_mv2" {
+            //Use the MobileNet v2 model
+            mlModel = frames_mv2().model
+        } else{
+        //Use the fefault model (MobileNet v1 model)
+        mlModel = frames_mv1().model
         }
+        guard let model = try? VNCoreMLModel(for: mlModel) else { return }
         
         // Create vision request
         let request = VNCoreMLRequest(model: model) {[weak self] request, error in
@@ -555,27 +564,19 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             // Update the main UI thread with our result
             DispatchQueue.main.async {[weak self] in
                 for result in results {
+                    print (result)
                     let confidence = Float(round(Float(result.confidence)*10000))
-                    if result.identifier == "non_porn" {
+                    if result.identifier == "non porn" {
                         self?.nonLewdLabel.text = " \(confidence/100)%"
                     } else {
                         self?.lewdLabel.text = " \(confidence/100)%"
                     }
                 }
                 
-                
-                
-                
-                
-                
-                
                 let end = DispatchTime.now()
                 let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
                 let timeInterval = Double(nanoTime) / 1_000_000 // Technically could overflow for long running tests
                 self?.inferenceTimeLabel.text = "\(Int(round(timeInterval))) ms"
-                
-                
-                
                 
                 self?.statusLabel.text = "Completed"
             }

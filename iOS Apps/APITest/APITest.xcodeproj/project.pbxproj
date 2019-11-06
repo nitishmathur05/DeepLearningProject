@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4333ABB62368363B006D3745 /* frames.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4333ABB52368363B006D3745 /* frames.mlmodel */; };
+		43B1E584236EF62900565E2F /* frames_mv1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E583236EF62900565E2F /* frames_mv1.mlmodel */; };
+		43B1E586236F0C7800565E2F /* frames_mv2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 43B1E585236F0C7800565E2F /* frames_mv2.mlmodel */; };
 		D33FBBAA23681B8E00BB1C2B /* RealTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33FBBA923681B8E00BB1C2B /* RealTimeViewController.swift */; };
 		D3F19DE1232D32C90031EAA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F19DE0232D32C90031EAA4 /* AppDelegate.swift */; };
 		D3F19DE3232D32C90031EAA4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F19DE2232D32C90031EAA4 /* MainViewController.swift */; };
@@ -20,7 +21,8 @@
 
 /* Begin PBXFileReference section */
 		3476D1F495892263816ACB8E /* Pods-APITest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APITest.release.xcconfig"; path = "Target Support Files/Pods-APITest/Pods-APITest.release.xcconfig"; sourceTree = "<group>"; };
-		4333ABB52368363B006D3745 /* frames.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = frames.mlmodel; path = ../../DeepLearningProject/coreml/frames.mlmodel; sourceTree = "<group>"; };
+		43B1E583236EF62900565E2F /* frames_mv1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = frames_mv1.mlmodel; sourceTree = "<group>"; };
+		43B1E585236F0C7800565E2F /* frames_mv2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = frames_mv2.mlmodel; sourceTree = "<group>"; };
 		A4D973A4F2B1D109837DFCBB /* Pods_APITest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APITest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33FBBA923681B8E00BB1C2B /* RealTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeViewController.swift; sourceTree = "<group>"; };
 		D3F19DDD232D32C90031EAA4 /* Evaluator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Evaluator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,7 +77,8 @@
 		D3F19DDF232D32C90031EAA4 /* APITest */ = {
 			isa = PBXGroup;
 			children = (
-				4333ABB52368363B006D3745 /* frames.mlmodel */,
+				43B1E585236F0C7800565E2F /* frames_mv2.mlmodel */,
+				43B1E583236EF62900565E2F /* frames_mv1.mlmodel */,
 				D3F19DE0232D32C90031EAA4 /* AppDelegate.swift */,
 				D33FBBA923681B8E00BB1C2B /* RealTimeViewController.swift */,
 				D3F19DE2232D32C90031EAA4 /* MainViewController.swift */,
@@ -213,10 +216,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4333ABB62368363B006D3745 /* frames.mlmodel in Sources */,
+				43B1E586236F0C7800565E2F /* frames_mv2.mlmodel in Sources */,
 				D3F19DE3232D32C90031EAA4 /* MainViewController.swift in Sources */,
 				D3F19DE1232D32C90031EAA4 /* AppDelegate.swift in Sources */,
 				D33FBBAA23681B8E00BB1C2B /* RealTimeViewController.swift in Sources */,
+				43B1E584236EF62900565E2F /* frames_mv1.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
