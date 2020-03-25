@@ -114,7 +114,7 @@ sqlparse==0.3.0
 stringcase==1.2.0
 tb-nightly==1.14.0a20190301
 tensorboard==1.12.2
-tensorflow==1.12.3
+tensorflow==1.15.2
 tensorflow-estimator==1.14.0
 tensorflow-hub==0.6.0
 termcolor==1.1.0
