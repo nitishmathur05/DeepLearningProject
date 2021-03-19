@@ -14,7 +14,7 @@ cycler==0.10.0
 decorator==4.4.0
 defusedxml==0.6.0
 Django==2.2.5
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 docker==2.6.1
 docker-compose==1.18.0
 docker-pycreds==0.2.1
